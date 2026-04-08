@@ -7,7 +7,7 @@ export const projects = [
         year: 2023,
         category: "visual",
         type: "image",
-        src: "Projects/2023/VisualIllustration/TheMoss.jpeg",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/TheMoss.jpg",
         featured: true
     },
     {
@@ -16,7 +16,7 @@ export const projects = [
         year: 2023,
         category: "visual",
         type: "image",
-        src: "Projects/2023/VisualIllustration/Vase.png",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/Vase.jpeg",
         featured: false
     },
     {
@@ -25,7 +25,7 @@ export const projects = [
         year: 2023,
         category: "visual",
         type: "image",
-        src: "Projects/2023/VisualIllustration/Wilderness.jpeg",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/Wilderness.jpeg",
         featured: false
     },
     {
@@ -35,10 +35,10 @@ export const projects = [
         category: "visual",
         type: "gallery",
         images: [
-            "Projects/2023/VisualIllustration/Va!1.jpeg",
-            "Projects/2023/VisualIllustration/Va!2.jpeg",
-            "Projects/2023/VisualIllustration/Va!3.jpeg",
-            "Projects/2023/VisualIllustration/Va!Poster.jpeg"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Va!1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Va!2.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Va!3.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Va!Poster.jpeg"
         ],
         description: "A visual series exploring rhythm and repetition through collage.",
         featured: false
@@ -52,13 +52,13 @@ export const projects = [
         category: "creative-tech",
         type: "gallery",
         images: [
-            "Projects/2024/CreativeTech/Escape1.jpeg",
-            "Projects/2024/CreativeTech/Escape2.jpeg",
-            "Projects/2024/CreativeTech/Escape3.jpeg",
-            "Projects/2024/CreativeTech/Escape4.jpeg",
-            "Projects/2024/CreativeTech/Escape5.jpeg",
-            "Projects/2024/CreativeTech/Escape6.jpeg",
-            "Projects/2024/CreativeTech/EscapeGirl.jpeg"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Escape1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Escape2.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Escape3.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Escape4.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Escape5.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Escape6.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/EscapeGirl.jpeg"
         ],
         description: "An interactive installation exploring surveillance and the gaze.",
         featured: false
@@ -72,9 +72,9 @@ export const projects = [
         category: "creative-tech",
         type: "gallery",
         images: [
-            "Projects/2025/CreativeTech/Collage1.png",
-            "Projects/2025/CreativeTech/Collage2.png",
-            "Projects/2025/CreativeTech/Collage3.png"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Collage1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Collage2.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Collage3.jpeg"
         ],
         link: "https://xiao-ooo.github.io/Core-Lab-System-Projects/index.html",
         linkLabel: "Experience the Work",
@@ -88,8 +88,8 @@ export const projects = [
         category: "creative-tech",
         type: "gallery",
         images: [
-            "Projects/2025/CreativeTech/Pizza1.png",
-            "Projects/2025/CreativeTech/Pizza2.png"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Pizza1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Pizza2.jpeg"
         ],
         link: "https://collaborative-1-rclj.onrender.com/",
         linkLabel: "Click to Play",
@@ -103,10 +103,10 @@ export const projects = [
         category: "creative-tech",
         type: "gallery",
         images: [
-            "Projects/2025/CreativeTech/Stalk1.png",
-            "Projects/2025/CreativeTech/Stalk2.png",
-            "Projects/2025/CreativeTech/Stalk3.png",
-            "Projects/2025/CreativeTech/Stalk4.png"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Stalk1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Stalk2.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Stalk3.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Stalk4.jpeg"
         ],
         link: "https://emergingfuture-3.onrender.com/index.html",
         linkLabel: "Experience the Work",
@@ -120,10 +120,12 @@ export const projects = [
         category: "creative-tech",
         type: "gallery",
         images: [
-            "Projects/2025/CreativeTech/Untitled3.jpeg",
-            "Projects/2025/CreativeTech/Untitled1.jpeg",
-            "Projects/2025/CreativeTech/Untitled2.jpeg"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Untitled3.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Untitled1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Untitled2.jpeg"
         ],
+        video: "https://res.cloudinary.com/dilcfjytt/video/upload/UntitledPlaytest.mp4",
+        thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/Untitled3.jpeg",
         description: "An Arduino-based installation investigating physical and digital feedback loops.",
         featured: false
     },
@@ -133,7 +135,7 @@ export const projects = [
         year: 2025,
         category: "photography",
         type: "image",
-        src: "Projects/2025/Photography/CentralParkMother.jpeg",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/CentralParkMother.jpeg",
         description: "A quiet documentary moment — a first encounter with Central Park.",
         featured: false
     },
@@ -143,21 +145,21 @@ export const projects = [
         year: 2025,
         category: "photography",
         type: "image",
-        src: "Projects/2025/Photography/NatureCollection.jpeg",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/NatureCollection.jpeg",
         description: "Nature finding its way through the city.",
         featured: false
     },
-    // {
-    //     id: "proj-012",
-    //     title: "Illusional",
-    //     year: 2025,
-    //     category: "films",
-    //     type: "video",
-    //     src: "Projects/2025/Films/Illusional.mp4",
-    //     thumbnail: "Projects/2025/Films/Illusional.png",
-    //     description: "A short film exploring perception, illusion, and the fragility of what we believe we see.",
-    //     featured: true
-    // },
+    {
+        id: "proj-012",
+        title: "Illusional",
+        year: 2025,
+        category: "films",
+        type: "video",
+        youtube: "BLda6tp7GNg",
+        thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/Illusional.jpeg",
+        description: "A short film exploring perception, illusion, and the fragility of what we believe we see.",
+        featured: true
+    },
 
     // ── 2026 ──────────────────────────────────────────────
     {
@@ -167,12 +169,12 @@ export const projects = [
         category: "creative-tech",
         type: "gallery",
         images: [
-            "Projects/2026/CreativeTech/HackathonPigeon1.jpeg",
-            "Projects/2026/CreativeTech/HackathonPigeon2.jpeg",
-            "Projects/2026/CreativeTech/HackathonPigeon3.jpeg"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/HackathonPigeon1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/HackathonPigeon2.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/HackathonPigeon3.jpeg"
         ],
-        video: "Projects/2026/CreativeTech/HackathonPigeonVideo.mp4",
-        thumbnail: "Projects/2026/CreativeTech/HackathonPigeon3.jpeg",
+        video: "https://res.cloudinary.com/dilcfjytt/video/upload/HackathonPigeonVideo.mp4",
+        thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/HackathonPigeon3.jpeg",
         description: "A Unity game built during the Playful NYC Hackathon — pigeons, chaos, and the city.",
         featured: true
     },
@@ -182,7 +184,7 @@ export const projects = [
         year: 2026,
         category: "photography",
         type: "image",
-        src: "Projects/2026/Photography/14st.png",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/14st.jpeg",
         description: "14th Street — a study in urban motion.",
         featured: true
     },
@@ -192,7 +194,7 @@ export const projects = [
         year: 2026,
         category: "photography",
         type: "image",
-        src: "Projects/2026/Photography/Winter.png",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/Winter.jpeg",
         description: "Winter light in the city.",
         featured: true
     },
@@ -202,7 +204,7 @@ export const projects = [
         year: 2026,
         category: "photography",
         type: "image",
-        src: "Projects/2026/Photography/NYCGarbage.png",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/NYCGarbage.jpeg",
         description: "NYC garbage — the city's unfiltered self-portrait.",
         featured: true
     },
@@ -213,16 +215,16 @@ export const projects = [
         category: "photography",
         type: "gallery",
         images: [
-            "Projects/2026/Photography/Knowledge7.png",
-            "Projects/2026/Photography/Knowledge9.png",
-            "Projects/2026/Photography/Knowledge1.png",
-            "Projects/2026/Photography/Knowledge3.png",
-            "Projects/2026/Photography/Knowledge5.png",
-            "Projects/2026/Photography/Knowledge2.png",
-            "Projects/2026/Photography/Knowledge4.png",
-            "Projects/2026/Photography/Knowledge6.png",
-            "Projects/2026/Photography/Knowledge8.png",
-            "Projects/2026/Photography/Knowledge10.png"
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge7.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge9.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge3.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge5.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge2.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge4.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge6.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge8.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge10.jpeg"
         ],
         description: "A ten-part photographic series on knowledge, accumulation, and space.",
         featured: false

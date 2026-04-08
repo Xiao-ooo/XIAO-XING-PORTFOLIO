@@ -64,41 +64,51 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* ---- MEDIA ---- */
-    const mediaContainer = document.getElementById("proj-media");
-    if (!mediaContainer) return;
+/* ---- MEDIA ---- */
+const mediaContainer = document.getElementById("proj-media");
+if (!mediaContainer) return;
 
-    if (proj.type === "image") {
+if (proj.type === "image") {
+    mediaContainer.innerHTML = `
+        <img src="${proj.src}" alt="${proj.title}" class="detail-image reveal">
+    `;
+
+} else if (proj.type === "video") {
+    if (proj.youtube) {
         mediaContainer.innerHTML = `
-            <img src="${proj.src}" alt="${proj.title}" class="detail-image reveal">
+            <iframe
+                width="100%" height="500"
+                src="https://www.youtube.com/embed/${proj.youtube}"
+                frameborder="0" allowfullscreen
+                class="detail-video reveal"></iframe>
         `;
-
-    } else if (proj.type === "video") {
+    } else {
         mediaContainer.innerHTML = `
             <video controls src="${proj.src}"
                    class="detail-video reveal"
                    ${proj.thumbnail ? `poster="${proj.thumbnail}"` : ""}></video>
         `;
+    }
 
-    } else if (proj.type === "gallery") {
-        mediaContainer.innerHTML = `
-            <div class="gallery-viewer">
-                <div class="gallery-main" id="galleryMain">
-                    <img src="${proj.images[0]}" alt="${proj.title}" id="mainImage">
-                    <button class="gal-nav gal-prev" id="galPrev">&#8592;</button>
-                    <button class="gal-nav gal-next" id="galNext">&#8594;</button>
-                    <span class="gal-counter" id="galCounter">1 / ${proj.images.length}</span>
-                </div>
-                <div class="gallery-thumbs" id="galleryThumbs">
-                    ${proj.images.map((img, i) => `
-                        <img src="${img}"
-                             alt="slide ${i + 1}"
-                             class="thumb ${i === 0 ? "active" : ""}"
-                             data-index="${i}">
-                    `).join("")}
-                </div>
+} else if (proj.type === "gallery") {
+    mediaContainer.innerHTML = `
+        <div class="gallery-viewer">
+            <div class="gallery-main" id="galleryMain">
+                <img src="${proj.images[0]}" alt="${proj.title}" id="mainImage">
+                <button class="gal-nav gal-prev" id="galPrev">&#8592;</button>
+                <button class="gal-nav gal-next" id="galNext">&#8594;</button>
+                <span class="gal-counter" id="galCounter">1 / ${proj.images.length}</span>
             </div>
-        `;
+            <div class="gallery-thumbs" id="galleryThumbs">
+                ${proj.images.map((img, i) => `
+                    <img src="${img}"
+                         alt="slide ${i + 1}"
+                         class="thumb ${i === 0 ? "active" : ""}"
+                         data-index="${i}">
+                `).join("")}
+            </div>
+        </div>
+    `;
 
         let current = 0;
         const mainImg = document.getElementById("mainImage");

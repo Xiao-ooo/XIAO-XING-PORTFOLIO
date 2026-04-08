@@ -302,3 +302,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("ctCollage")) buildCollage("ctCollage");
     if (document.getElementById("loopTrack")) buildLoopStrip("loopTrack");
 });
+
+/* ===== THEME TOGGLE ===== */
+const themeToggle = document.getElementById("themeToggle");
+const themeLabel = document.getElementById("themeLabel");
+
+// Load saved preference
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light");
+    if (themeToggle) themeToggle.checked = true;
+    if (themeLabel) themeLabel.textContent = "Light";
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener("change", () => {
+        const isLight = themeToggle.checked;
+        document.body.classList.toggle("light", isLight);
+        themeLabel.textContent = isLight ? "Light" : "Dark";
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+    });
+}
