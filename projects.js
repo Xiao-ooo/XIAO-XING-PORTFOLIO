@@ -8,6 +8,8 @@ export const projects = [
         category: "visual",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/TheMoss.jpg",
+        medium: "Acrylic on canvas — 8.5 × 11 in",
+        description: "A study in organic texture and quiet persistence. Moss as a subject resists the spectacular — it grows slowly, unnoticed, in the margins. This piece explores what it means to look closely at the overlooked.",
         featured: true
     },
     {
@@ -17,7 +19,9 @@ export const projects = [
         category: "visual",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/Vase.jpeg",
-        featured: false
+        medium: "Mixed media collage",
+        description: "An investigation into fragility and containment. The vase — a vessel built to hold — becomes a site for exploring tension between structure and what spills beyond it.",
+        featured: true
     },
     {
         id: "proj-003",
@@ -26,7 +30,9 @@ export const projects = [
         category: "visual",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/Wilderness.jpeg",
-        featured: false
+        medium: "Acrylic on canvas",
+        description: "Wild spaces resist order. This work sits in the tension between landscape as feeling and landscape as place — somewhere between documentation and imagination.",
+        featured: true
     },
     {
         id: "proj-004",
@@ -40,7 +46,8 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/Va!3.jpeg",
             "https://res.cloudinary.com/dilcfjytt/image/upload/Va!Poster.jpeg"
         ],
-        description: "A visual series exploring rhythm and repetition through collage.",
+        medium: "Collage series — 4 works",
+        description: "Rhythm, repetition, and noise. A four-part collage series that borrows from performance energy — each piece building on the last, louder in its visual insistence.",
         featured: false
     },
 
@@ -60,8 +67,9 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/Escape6.jpeg",
             "https://res.cloudinary.com/dilcfjytt/image/upload/EscapeGirl.jpeg"
         ],
-        description: "An interactive installation exploring surveillance and the gaze.",
-        featured: false
+        medium: "Interactive installation",
+        description: "An interactive installation interrogating the politics of the gaze. Viewers become subjects — watched, tracked, unable to fully escape the eyes that follow. The work asks who is allowed to look, and at what cost.",
+        featured: true
     },
 
     // ── 2025 ──────────────────────────────────────────────
@@ -78,7 +86,8 @@ export const projects = [
         ],
         link: "https://xiao-ooo.github.io/Core-Lab-System-Projects/index.html",
         linkLabel: "Experience the Work",
-        description: "An interactive collage series driven by emotional input and generative response.",
+        medium: "Generative web, interactive collage",
+        description: "A generative collage system that responds to emotional input. The work treats emotion not as background noise but as compositional material — each interaction reshapes the image in real time.",
         featured: true
     },
     {
@@ -93,8 +102,10 @@ export const projects = [
         ],
         link: "https://collaborative-1-rclj.onrender.com/",
         linkLabel: "Click to Play",
-        description: "A real-time multiplayer experience built around collaborative making.",
-        featured: false
+        medium: "Multiplayer web experience",
+        description: "A real-time multiplayer game built around the act of making together. Strangers collaborate — and occasionally sabotage — to bake a pizza. A study in shared authorship, timing, and the chaos of collective action.",
+        featured: false,
+       
     },
     {
         id: "proj-008",
@@ -110,7 +121,8 @@ export const projects = [
         ],
         link: "https://emergingfuture-3.onrender.com/index.html",
         linkLabel: "Experience the Work",
-        description: "An immersive Unity environment exploring speculative futures.",
+        medium: "Unity, immersive 3D environment",
+        description: "An immersive Unity environment set in a near-future world where the boundaries between surveillance, connection, and identity have collapsed. NEXIS asks what remains of the self when everything is networked.",
         featured: true
     },
     {
@@ -126,7 +138,8 @@ export const projects = [
         ],
         video: "https://res.cloudinary.com/dilcfjytt/video/upload/UntitledPlaytest.mp4",
         thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/Untitled3.jpeg",
-        description: "An Arduino-based installation investigating physical and digital feedback loops.",
+        medium: "Arduino, physical computing, interactive installation",
+        description: "A physical computing installation that blurs the threshold between body and machine. Sensors translate touch and movement into digital response — the work lives in the feedback loop between the two.",
         featured: false
     },
     {
@@ -136,7 +149,8 @@ export const projects = [
         category: "photography",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/CentralParkMother.jpeg",
-        description: "A quiet documentary moment — a first encounter with Central Park.",
+        medium: "Documentary photography",
+        description: "A mother's first encounter with Central Park. The image holds the weight of arrival — the way a place can feel both overwhelming and quietly welcoming at once.",
         featured: false
     },
     {
@@ -146,8 +160,9 @@ export const projects = [
         category: "photography",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/NatureCollection.jpeg",
-        description: "Nature finding its way through the city.",
-        featured: false
+        medium: "Photography",
+        description: "Plants growing through concrete, between tiles, along walls. The city tries to contain nature and fails. This series documents those small, persistent acts of refusal.",
+        featured: true
     },
     {
         id: "proj-012",
@@ -157,14 +172,32 @@ export const projects = [
         type: "video",
         youtube: "BLda6tp7GNg",
         thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/Illusional.jpeg",
-        description: "A short film exploring perception, illusion, and the fragility of what we believe we see.",
+        medium: "Short film",
+        description: "A short film built around the instability of perception. What we see is shaped by what we expect to see — and the moment that breaks down is where the work begins.",
         featured: true
     },
 
     // ── 2026 ──────────────────────────────────────────────
+
     {
         id: "proj-013",
-        title: "Playful NYC Hackathon Drop Zone x UNITY",
+        title: "Sonic Continuum",
+        year: 2026,
+        category: "creative-tech",
+        type: "gallery",
+        images: [
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Sonic1.jpg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Sonic2.jpg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Sonic3.jpg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/Sonic4.jpg"
+        ],
+        medium: "Music Creation",
+        description: "A ....",
+        featured: true
+    },
+    {
+        id: "proj-014",
+        title: "Playful NYC Hackathon — Drop Zone × Unity",
         year: 2026,
         category: "creative-tech",
         type: "gallery",
@@ -175,41 +208,45 @@ export const projects = [
         ],
         video: "https://res.cloudinary.com/dilcfjytt/video/upload/HackathonPigeonVideo.mp4",
         thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/HackathonPigeon3.jpeg",
-        description: "A Unity game built during the Playful NYC Hackathon — pigeons, chaos, and the city.",
+        medium: "Unity game, developed at Playful NYC Hackathon",
+        description: "Built in 48 hours at the Playful NYC Hackathon. Pigeons rain from the sky, the city is chaos, and players must adapt. A game about urban absurdity, unexpected rules, and the joy of making something strange under pressure.",
         featured: true
     },
     {
-        id: "proj-014",
+        id: "proj-015",
         title: "Untitled #000csp1",
         year: 2026,
         category: "photography",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/14st.jpeg",
-        description: "14th Street — a study in urban motion.",
+        medium: "Photography — 14th Street, New York",
+        description: "14th Street as constant motion. This image tries to hold what the street refuses to — a single moment inside a place defined by its restlessness.",
         featured: true
     },
     {
-        id: "proj-015",
+        id: "proj-016",
         title: "Untitled #000csp2",
         year: 2026,
         category: "photography",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/Winter.jpeg",
-        description: "Winter light in the city.",
+        medium: "Photography — New York",
+        description: "Winter in the city strips everything back. Light falls differently, people move faster, and the architecture stands a little more exposed. A study in seasonal honesty.",
         featured: true
     },
     {
-        id: "proj-016",
+        id: "proj-017",
         title: "Untitled #000csp3",
         year: 2026,
         category: "photography",
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/NYCGarbage.jpeg",
-        description: "NYC garbage — the city's unfiltered self-portrait.",
+        medium: "Photography — New York",
+        description: "New York's garbage is its most honest self-portrait. Piled at curbs, sorted into bags, left for collection — the city's excess made visible. This image doesn't look away.",
         featured: true
     },
     {
-        id: "proj-017",
+        id: "proj-018",
         title: "Untitled #000csp4 Series",
         year: 2026,
         category: "photography",
@@ -226,8 +263,20 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge8.jpeg",
             "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge10.jpeg"
         ],
-        description: "A ten-part photographic series on knowledge, accumulation, and space.",
-        featured: false
+        medium: "Photography series — 10 works",
+        description: "A ten-part series photographed at the Knowledge Building. The work accumulates across frames — each image a fragment, the series a whole. About space, institutional architecture, and what it feels like to learn inside a building designed to mean something.",
+        featured: true
+    },
+    {
+        id: "proj-019",
+        title: "Mirage",
+        year: 2026,
+        category: "visual",
+        type: "image",
+        src: "https://res.cloudinary.com/dilcfjytt/image/upload/MirageBoss.jpg",
+        medium: "Digital Illustration — Procreate",
+        description: "Unity Game - Final Boss",
+        featured: true
     }
 
 ];

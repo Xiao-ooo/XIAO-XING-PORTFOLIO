@@ -1,9 +1,9 @@
 # Xiao Xing — Portfolio
 
 A personal portfolio website showcasing my work across creative technology,
-photography, and visual illustrations.
+photography, and visual illustrations/Installations.
 
-🌐 [Visit Portfolio](https://xiaoxing.github.io/portfolio)
+🌐 [Visit Portfolio](https://xiao-ooo.github.io/XIAO-XING-PORTFOLIO/)
 
 ---
 
@@ -40,7 +40,7 @@ You are welcome to view and share this work with proper credit, but you may
 for personal or commercial purposes without **explicit written permission**
 from the author.
 
-To request permission, please reach out via [GitHub](https://github.com/YOUR-USERNAME).
+To request permission, please reach out via [GitHub](https://github.com/Xiao-ooo).
 
 ---
 

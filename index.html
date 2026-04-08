@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XIAO XING</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <script>if (localStorage.getItem("theme") === "light") { document.body.classList.add("light"); }</script>
 
   <nav id="mainNav">
     <div class="nav-inner">
-      <div class="theme-toggle">
-        <span class="theme-toggle-label" id="themeLabel">Dark</span>
-        <label class="theme-switch">
+      <div class="nav-left">
+        <a class="logo" href="index.html">XIAO XING</a>
+        <div class="theme-toggle">
+          <span class="theme-toggle-label" id="themeLabel">Dark</span>
+          <label class="theme-switch">
             <input type="checkbox" id="themeToggle">
             <span class="theme-slider"></span>
-        </label>
-    </div>
-      <a class="logo" href="index.html">XIAO XING</a>
+          </label>
+        </div>
+      </div>
       <ul>
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="creative-technology.html">Creative Technology</a></li>
@@ -67,7 +74,7 @@
         </div>
       </div>
       <div class="about-panel about-panel--closing">
-        <p class="about-closing-text">Selected works<br><em>below</em></p>
+        <p class="about-closing-text">Featured Work<br><em>below</em></p>
         <div class="about-drop-line"></div>
       </div>
     </div>
@@ -80,7 +87,8 @@
         <h2>Creative<br><em>Technology</em></h2>
       </div>
       <div class="ct-header-right">
-        <p class="ct-desc">Exploring the intersection of code, interaction, and human experience — through immersive installations, generative systems, and digital works that ask something of the viewer.</p>
+        <p class="ct-desc">Exploring the intersection of code, interaction, and human experience — through immersive
+          installations, generative systems, and digital works that ask something of the viewer.</p>
         <a href="creative-technology.html" class="ct-link">View all work <span class="link-line"></span></a>
       </div>
     </div>
@@ -101,7 +109,7 @@
     </div>
     <div class="hscroll-hint reveal">
       <span class="hscroll-line"></span>
-      <span>loops forever — drag to seek</span>
+      <span>Click to Explore</span>
       <span class="hscroll-line"></span>
     </div>
   </section>
@@ -133,4 +141,5 @@
     }, { passive: true });
   </script>
 </body>
+
 </html>

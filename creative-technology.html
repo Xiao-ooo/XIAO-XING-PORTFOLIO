@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creative Technology — XIAO XING</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <script>if (localStorage.getItem("theme") === "light") { document.body.classList.add("light"); }</script>
   <nav id="mainNav">
     <div class="nav-inner">
-      <div class="theme-toggle">
-        <span class="theme-toggle-label" id="themeLabel">Dark</span>
-        <label class="theme-switch">
+      <div class="nav-left">
+        <a class="logo" href="index.html">XIAO XING</a>
+        <div class="theme-toggle">
+          <span class="theme-toggle-label" id="themeLabel">Dark</span>
+          <label class="theme-switch">
             <input type="checkbox" id="themeToggle">
             <span class="theme-slider"></span>
-        </label>
-    </div>
-      <a class="logo" href="index.html">XIAO XING</a>
+          </label>
+        </div>
+      </div>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="creative-technology.html" class="active">Creative Technology</a></li>
@@ -60,5 +67,20 @@
       nav.classList.toggle("scrolled", window.scrollY > 40);
     }, { passive: true });
   </script>
+  <script>
+    (function () {
+      var tt = document.getElementById("themeToggle"), tl = document.getElementById("themeLabel");
+      if (tt) {
+        tt.checked = localStorage.getItem("theme") === "light";
+        if (tl) tl.textContent = tt.checked ? "Light" : "Dark";
+        tt.addEventListener("change", function () {
+          document.body.classList.toggle("light", tt.checked);
+          if (tl) tl.textContent = tt.checked ? "Light" : "Dark";
+          localStorage.setItem("theme", tt.checked ? "light" : "dark");
+        });
+      }
+    })();
+  </script>
 </body>
+
 </html>
