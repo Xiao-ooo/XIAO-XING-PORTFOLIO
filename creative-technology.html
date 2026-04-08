@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Technology — XIAO XING</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a class="logo" href="index.html">XIAO XING</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="creative-technology.html" class="active">Creative Technology</a></li>
+        <li><a href="visual-illustrations.html">Visual Illustrations</a></li>
+        <li><a href="photography-films.html">Photography &amp; Films</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero reveal">
+    <span class="section-label">Archive</span>
+    <h1>Creative <em>Technology</em></h1>
+    <span class="page-hero-sub">Newest — Oldest</span>
+  </div>
+
+  <div class="gallery-nav">
+    <span class="gallery-nav-label">Filter</span>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="2026">2026</button>
+      <button class="filter-btn" data-filter="2025">2025</button>
+      <button class="filter-btn" data-filter="2024">2024</button>
+    </div>
+    <span class="gallery-count-label"></span>
+  </div>
+
+  <section id="projects">
+    <div id="projectsContainer" data-category="creative-tech"></div>
+  </section>
+
+  <script type="module">
+    import { renderProjects, initFilterBar } from './script.js';
+    renderProjects("projectsContainer", "creative-tech");
+    initFilterBar();
+  </script>
+  <script>
+    const nav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 40);
+    }, { passive: true });
+  </script>
+</body>
+</html>

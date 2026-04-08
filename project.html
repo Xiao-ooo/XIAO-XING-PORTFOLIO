@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project — XIAO XING</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="project-detail-page">
+
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a class="logo" href="index.html">XIAO XING</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="creative-technology.html">Creative Technology</a></li>
+        <li><a href="visual-illustrations.html">Visual Illustrations</a></li>
+        <li><a href="photography-films.html">Photography &amp; Films</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="detail-main">
+
+    <div class="detail-header reveal">
+      <a href="javascript:history.back()" class="back-link">Back</a>
+      <span class="detail-breadcrumb" id="breadcrumb"></span>
+    </div>
+
+    <div class="detail-title-block reveal">
+      <h1 id="proj-title"></h1>
+      <div class="detail-meta">
+        <span class="detail-year" id="proj-year"></span>
+        <span class="detail-cat-label" id="proj-cat"></span>
+      </div>
+    </div>
+
+    <div class="detail-media" id="proj-media"></div>
+
+    <div id="proj-experience-wrap"></div>
+
+    <div class="detail-body reveal">
+      <p class="detail-description" id="proj-description"></p>
+      <div class="detail-link-wrap">
+        <a class="detail-link" id="proj-link" href="#" target="_blank" rel="noopener" style="display:none"></a>
+      </div>
+    </div>
+
+    <div class="detail-related reveal">
+      <h4 class="related-heading">More from this series</h4>
+      <div class="related-grid" id="relatedProjects"></div>
+    </div>
+
+  </main>
+
+  <script type="module" src="project.js"></script>
+</body>
+</html>

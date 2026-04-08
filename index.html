@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XIAO XING</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a class="logo" href="index.html">XIAO XING</a>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="creative-technology.html">Creative Technology</a></li>
+        <li><a href="visual-illustrations.html">Visual Illustrations</a></li>
+        <li><a href="photography-films.html">Photography &amp; Films</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="intro">
+    <div class="intro-bg"></div>
+    <div class="intro-inner">
+      <p class="intro-eyebrow">Portfolio</p>
+      <h1>XIAO XING</h1>
+      <div class="intro-divider"><span></span><i></i><span></span></div>
+      <p class="intro-sub">Where technology becomes feeling,<br>and interaction becomes meaning</p>
+      <span class="intro-scroll-hint">scroll</span>
+    </div>
+  </section>
+
+  <section id="about-split">
+    <div class="about-sticky-left">
+      <span class="about-eyebrow">About</span>
+      <h2 class="about-sticky-title">Creative<br><em>Technologist</em><br>&amp; Visual<br><em>Artist</em></h2>
+      <a href="creative-technology.html" class="about-sticky-cue">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">explore work</span>
+      </a>
+    </div>
+    <div class="about-scroll-right">
+      <div class="about-panel about-panel--bio">
+        <p class="about-bio">
+          I'm Xiao Xing — drawn to the space where code and human emotion meet.
+          My practice spans immersive installations, generative systems, and visual
+          storytelling. Each work is an investigation into how digital experience
+          can carry genuine weight and feeling.
+        </p>
+      </div>
+      <div class="about-panel about-panel--tags">
+        <div class="about-tags">
+          <span class="about-tag">Creative Technology</span>
+          <span class="about-tag">Interactive Design</span>
+          <span class="about-tag">Visual Illustration</span>
+          <span class="about-tag">Immersive Experience</span>
+        </div>
+      </div>
+      <div class="about-panel about-panel--closing">
+        <p class="about-closing-text">Selected works<br><em>below</em></p>
+        <div class="about-drop-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="creative-tech-feature">
+    <div class="ct-header reveal">
+      <div class="ct-header-left">
+        <span class="section-label">Primary Discipline</span>
+        <h2>Creative<br><em>Technology</em></h2>
+      </div>
+      <div class="ct-header-right">
+        <p class="ct-desc">Exploring the intersection of code, interaction, and human experience — through immersive installations, generative systems, and digital works that ask something of the viewer.</p>
+        <a href="creative-technology.html" class="ct-link">View all work <span class="link-line"></span></a>
+      </div>
+    </div>
+    <div class="ct-collage" id="ctCollage"></div>
+  </section>
+
+  <section id="other-featured">
+    <div class="hscroll-header reveal">
+      <span class="section-label">Selected Work</span>
+      <h2>Other <em>Highlights</em></h2>
+    </div>
+    <div class="loop-strip-outer">
+      <div class="loop-fade-left"></div>
+      <div class="loop-fade-right"></div>
+      <div class="loop-track-wrap">
+        <div class="loop-track" id="loopTrack"></div>
+      </div>
+    </div>
+    <div class="hscroll-hint reveal">
+      <span class="hscroll-line"></span>
+      <span>loops forever — drag to seek</span>
+      <span class="hscroll-line"></span>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <span class="section-label">Contact</span>
+        <h2>Let's <em>create</em><br>together</h2>
+        <a href="mailto:xiaoqingxing12@gmail.com" class="contact-email">xiaoqingxing12@gmail.com</a>
+      </div>
+      <div class="contact-right reveal">
+        <span class="contact-bio-label">Open to collaboration</span>
+        <p class="contact-bio">
+          Based in New York, currently studying Creative Technology.
+          Available for collaborations across interactive installation,
+          creative direction, immersive experience, and visual projects.
+        </p>
+        <p class="contact-collab">"If it doesn't ask something of the viewer, it isn't finished."</p>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="script.js"></script>
+  <script>
+    const nav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 80);
+    }, { passive: true });
+  </script>
+</body>
+</html>
