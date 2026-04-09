@@ -4,12 +4,12 @@ import { projects } from './projects.js';
    INTRO TEXT PARALLAX
 ============================================================ */
 const introInner = document.querySelector(".intro-inner");
-const introBg = document.querySelector(".intro-bg");
+const introBg    = document.querySelector(".intro-bg");
 if (introInner) {
     window.addEventListener("scroll", () => {
-        const y = window.scrollY;
+        const y    = window.scrollY;
         const ease = 1 - Math.pow(1 - Math.min(y / 480, 1), 3);
-        introInner.style.opacity = 1 - ease * 1.25;
+        introInner.style.opacity   = 1 - ease * 1.25;
         introInner.style.transform = `translateY(${y * 0.18}px) scale(${1 - ease * 0.04})`;
         if (introBg) introBg.style.transform = `scale(${1 + ease * 0.12})`;
     }, { passive: true });
@@ -34,15 +34,15 @@ function buildCollage(id) {
     if (!container) return;
 
     const items = projects
-    .filter(p => p.category === "creative-tech" && p.featured)
-    .sort((a, b) => b.year - a.year)
-    .slice(0, 6);
+        .filter(p => p.category === "creative-tech")
+        .sort((a, b) => b.year - a.year)
+        .slice(0, 9);
 
     container.innerHTML = "";
     items.forEach((p, i) => {
         const thumb = p.type === "gallery" ? p.images[0]
-            : p.type === "video" ? p.thumbnail
-                : p.src || "";
+                    : p.type === "video"   ? p.thumbnail
+                    : p.src || "";
 
         const el = document.createElement("a");
         el.href = `project.html?id=${p.id}`;
@@ -83,8 +83,8 @@ function buildLoopStrip(id) {
     const frag = document.createDocumentFragment();
     [...source, ...source].forEach(p => {
         const thumb = p.type === "gallery" ? p.images[0]
-            : p.type === "video" ? p.thumbnail
-                : p.src || "";
+                    : p.type === "video"   ? p.thumbnail
+                    : p.src || "";
         const card = document.createElement("a");
         card.href = `project.html?id=${p.id}`;
         card.classList.add("hcard");
@@ -118,17 +118,17 @@ function buildLoopStrip(id) {
     function resumeFrom(currentX) {
         const half = track.scrollWidth / 2;
         if (!half) return;
-        const raw = Math.abs(currentX) / half;
+        const raw      = Math.abs(currentX) / half;
         const progress = isNaN(raw) ? 0 : Math.min(raw, 1);
-        track.style.transform = "";
-        track.style.animation = `loopScroll ${duration}s linear infinite`;
+        track.style.transform      = "";
+        track.style.animation      = `loopScroll ${duration}s linear infinite`;
         track.style.animationDelay = `-${progress * duration}s`;
     }
 
     track.addEventListener("mousedown", e => {
         isDragging = true;
         dragStartX = e.clientX;
-        pausedAt = getX(track);
+        pausedAt   = getX(track);
         track.style.animation = "none";
         track.style.transform = `translateX(${pausedAt}px)`;
     });
@@ -151,7 +151,7 @@ function buildLoopStrip(id) {
 
     track.addEventListener("touchstart", e => {
         dragStartX = e.touches[0].clientX;
-        pausedAt = getX(track);
+        pausedAt   = getX(track);
         track.style.animation = "none";
         track.style.transform = `translateX(${pausedAt}px)`;
     }, { passive: true });
@@ -212,19 +212,19 @@ export function renderProjects(containerId, category = null) {
 
         byYear[year].forEach((p, i) => {
             const thumb = p.type === "gallery" ? p.images[0]
-                : p.type === "video" ? p.thumbnail
-                    : p.src || "";
+                        : p.type === "video"   ? p.thumbnail
+                        : p.src || "";
 
             const el = document.createElement("a");
             el.classList.add("project", "reveal");
             el.href = `project.html?id=${p.id}`;
-            el.dataset.year = p.year;
+            el.dataset.year     = p.year;
             el.dataset.category = p.category || "";
             el.style.transitionDelay = `${(i % 6) * 0.06}s`;
             el.innerHTML = `
                 <div class="project-media">
                     ${thumb ? `<img src="${thumb}" alt="${p.title}" loading="lazy">` : ""}
-                    ${p.type === "video" ? `<span class="proj-badge">&#9654;</span>` : ""}
+                    ${p.type === "video"   ? `<span class="proj-badge">&#9654;</span>` : ""}
                     ${p.type === "gallery" ? `<span class="proj-badge">${p.images.length} &#8594;</span>` : ""}
                 </div>
                 <div class="project-vignette"></div>
@@ -260,14 +260,14 @@ export function initFilterBar() {
             btns.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
 
-            const filter = btn.dataset.filter;
-            const cards = document.querySelectorAll(".project");
+            const filter  = btn.dataset.filter;
+            const cards   = document.querySelectorAll(".project");
             const markers = document.querySelectorAll(".year-marker");
-            let visible = 0;
+            let   visible = 0;
 
             cards.forEach(card => {
                 const show = filter === "all"
-                    || card.dataset.year === filter
+                    || card.dataset.year     === filter
                     || card.dataset.category === filter;
                 card.classList.toggle("hidden", !show);
                 if (show) visible++;
@@ -291,12 +291,12 @@ export function initFilterBar() {
    THEME TOGGLE
 ============================================================ */
 const themeToggle = document.getElementById("themeToggle");
-const themeLabel = document.getElementById("themeLabel");
+const themeLabel  = document.getElementById("themeLabel");
 
 if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light");
     if (themeToggle) themeToggle.checked = true;
-    if (themeLabel) themeLabel.textContent = "Light";
+    if (themeLabel)  themeLabel.textContent = "Light";
 }
 
 if (themeToggle) {
@@ -313,6 +313,6 @@ if (themeToggle) {
 ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
     observeReveal();
-    if (document.getElementById("ctCollage")) buildCollage("ctCollage");
-    if (document.getElementById("loopTrack")) buildLoopStrip("loopTrack");
+    if (document.getElementById("ctCollage"))  buildCollage("ctCollage");
+    if (document.getElementById("loopTrack"))  buildLoopStrip("loopTrack");
 });
