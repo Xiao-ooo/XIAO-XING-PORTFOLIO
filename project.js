@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---- FIND PROJECT ---- */
     const params = new URLSearchParams(window.location.search);
-    const id     = params.get("id");
-    const proj   = projects.find(p => p.id === id);
+    const id = params.get("id");
+    const proj = projects.find(p => p.id === id);
 
     if (!proj) {
         document.body.innerHTML = `
@@ -66,8 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const linkEl = document.getElementById("proj-link");
     if (linkEl) {
         if (proj.link) {
-            linkEl.href          = proj.link;
-            linkEl.textContent   = proj.linkLabel || "View Project →";
+            linkEl.href = proj.link;
+            linkEl.textContent = proj.linkLabel || "View Project →";
             linkEl.style.display = "inline-flex";
         } else {
             linkEl.style.display = "none";
@@ -123,13 +123,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let current = 0;
         const mainImg = document.getElementById("mainImage");
         const counter = document.getElementById("galCounter");
-        const thumbs  = document.querySelectorAll(".thumb");
+        const thumbs = document.querySelectorAll(".thumb");
 
         function goTo(index) {
             current = (index + proj.images.length) % proj.images.length;
             mainImg.style.opacity = "0";
             setTimeout(() => {
-                mainImg.src           = proj.images[current];
+                mainImg.src = proj.images[current];
                 mainImg.style.opacity = "1";
             }, 220);
             counter.textContent = `${current + 1} / ${proj.images.length}`;
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("galNext").addEventListener("click", () => goTo(current + 1));
         thumbs.forEach(t => t.addEventListener("click", () => goTo(parseInt(t.dataset.index))));
         document.addEventListener("keydown", e => {
-            if (e.key === "ArrowLeft")  goTo(current - 1);
+            if (e.key === "ArrowLeft") goTo(current - 1);
             if (e.key === "ArrowRight") goTo(current + 1);
         });
 
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             vidWrap.style.marginTop = "12px";
             const vid = document.createElement("video");
             vid.controls = true;
-            vid.src      = proj.video;
+            vid.src = proj.video;
             vid.classList.add("detail-video", "reveal");
             if (proj.thumbnail) vid.poster = proj.thumbnail;
             vidWrap.appendChild(vid);
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         related.forEach(p => {
             const thumb = p.type === "gallery" ? p.images[0]
-                        : p.src || p.thumbnail || "";
+                : p.src || p.thumbnail || "";
             const a = document.createElement("a");
             a.href = `project.html?id=${p.id}`;
             a.classList.add("related-card");
