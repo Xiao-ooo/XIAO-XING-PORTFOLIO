@@ -171,14 +171,14 @@ function buildLoopStrip(id) {
 }
 
 /* ============================================================
-   3D CYLINDER GALLERY
+   3D IMMERSIVE GALLERY — camera inside the ring
 ============================================================ */
 let _allCylItems = [];
 let _cylContainer = null;
-let _cylAnimId = null;
+let _galCleanup = null;
 
-function buildCylinder(items, container) {
-    if (_cylAnimId) { cancelAnimationFrame(_cylAnimId); _cylAnimId = null; }
+async function buildGallery3D(items, container) {
+    if (_galCleanup) { _galCleanup(); _galCleanup = null; }
     container.innerHTML = "";
 
     const countEl = document.querySelector(".gallery-count-label");
@@ -192,54 +192,54 @@ function buildCylinder(items, container) {
         return;
     }
 
-    const N = items.length;
-    const CARD_W = 180;
-    const STRING_H = 70;
-    const IMG_H = 116;
-    const INFO_H = 78;
-    const CARD_H = IMG_H + INFO_H;
-    const UNIT_H = STRING_H + CARD_H;
+    const loadDiv = document.createElement("div");
+    loadDiv.className = "gal-loading";
+    loadDiv.textContent = "Entering the gallery…";
+    container.appendChild(loadDiv);
 
-    const radius = Math.max(380, N * 44);
-    const perspective = Math.round(radius * 2.6);
-    const STEP = 360 / N;
+    let THREE_mod, CSS3D_mod;
+    try {
+        [THREE_mod, CSS3D_mod] = await Promise.all([
+            import("three"),
+            import("three/addons/renderers/CSS3DRenderer.js")
+        ]);
+    } catch {
+        loadDiv.textContent = "Gallery could not load";
+        return;
+    }
+
+    const { Scene, PerspectiveCamera } = THREE_mod;
+    const { CSS3DRenderer, CSS3DObject } = CSS3D_mod;
+
+    container.removeChild(loadDiv);
+
+    const scene = new Scene();
+    const W = container.clientWidth || window.innerWidth;
+    const H = container.clientHeight || 520;
+    const camera = new PerspectiveCamera(70, W / H, 1, 30000);
+    camera.position.set(0, 0, 0);
+    camera.rotation.order = "YXZ";
+
+    const renderer = new CSS3DRenderer();
+    renderer.setSize(W, H);
+    renderer.domElement.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;";
+    container.appendChild(renderer.domElement);
+
+    const N = items.length;
+    const radius = Math.max(700, N * 72);
     const TILTS = [-3, 4, -2, 5, -4, 2, 3, -5, 1, -1, 4, -3];
 
-    const scene = document.createElement("div");
-    scene.className = "gallery-scene";
-    scene.style.setProperty("--gal-persp", perspective + "px");
-
-    const cylinder = document.createElement("div");
-    cylinder.className = "gallery-cylinder";
-
     items.forEach((p, i) => {
+        const theta = (i / N) * Math.PI * 2;
         const thumb = p.type === "gallery" ? p.images[0]
             : p.type === "video" ? p.thumbnail
             : p.src || "";
 
-        const angle = i * STEP;
-        const tilt = TILTS[i % TILTS.length];
-
-        const wrap = document.createElement("div");
-        wrap.className = "gal-item-wrap";
-        wrap.style.transform = [
-            `rotateY(${angle}deg)`,
-            `translateZ(${radius}px)`,
-            `translateX(-${CARD_W / 2}px)`,
-            `translateY(-${UNIT_H / 2}px)`
-        ].join(" ");
-
-        const strEl = document.createElement("div");
-        strEl.className = "gal-string";
-
         const card = document.createElement("a");
-        card.className = "gal-postcard";
         card.href = `project.html?id=${p.id}`;
-        card.dataset.year = p.year;
-        card.dataset.category = p.category || "";
-        card.style.transform = `rotate(${tilt}deg)`;
+        card.className = "gal-postcard";
+        card.style.transformOrigin = "center center";
         card.draggable = false;
-
         card.innerHTML = `
             <div class="gal-postcard-img">
                 ${thumb ? `<img src="${thumb}" alt="${p.title}" loading="lazy" draggable="false">` : ""}
@@ -251,102 +251,122 @@ function buildCylinder(items, container) {
             </div>
         `;
 
-        wrap.appendChild(strEl);
-        wrap.appendChild(card);
-        cylinder.appendChild(wrap);
+        const obj = new CSS3DObject(card);
+        const yOffset = Math.sin(i * 2.4) * 140;
+        obj.position.set(
+            Math.sin(theta) * radius,
+            yOffset,
+            Math.cos(theta) * radius
+        );
+        /* face inward — θ + π rotates the card's front toward the center */
+        obj.rotation.y = theta + Math.PI;
+        obj.rotation.z = (TILTS[i % TILTS.length] * Math.PI) / 180;
+        scene.add(obj);
     });
 
     const hint = document.createElement("div");
     hint.className = "gal-drag-hint";
-    hint.textContent = "drag or scroll to explore →";
+    hint.textContent = "drag to look around →";
+    hint.style.zIndex = "10";
+    container.appendChild(hint);
 
-    scene.appendChild(cylinder);
-    scene.appendChild(hint);
-    container.appendChild(scene);
-
-    /* --- Rotation interaction --- */
-    let currentAngle = 0;
-    let velocity = 0;
+    let yaw = 0;
+    let velYaw = 0;
     let isDragging = false;
-    let lastDragX = 0;
-    let totalDragDist = 0;
+    let lastX = 0;
+    let totalDrag = 0;
+    let animId;
 
-    function setAngle(a) {
-        cylinder.style.transform = `rotateY(${a}deg)`;
-    }
-
-    function tick() {
+    function animate() {
         if (!isDragging) {
-            velocity *= 0.94;
-            if (Math.abs(velocity) < 0.004) velocity = 0;
-            currentAngle += velocity;
-            setAngle(currentAngle);
+            velYaw *= 0.97;
+            if (Math.abs(velYaw) < 0.00005) velYaw = 0;
+            yaw += velYaw;
         }
-        _cylAnimId = requestAnimationFrame(tick);
+        camera.rotation.y = yaw;
+        renderer.render(scene, camera);
+        animId = requestAnimationFrame(animate);
     }
-    tick();
+    animId = requestAnimationFrame(animate);
 
-    scene.addEventListener("mousedown", e => {
+    function onMouseDown(e) {
         isDragging = true;
-        lastDragX = e.clientX;
-        totalDragDist = 0;
-        velocity = 0;
-        scene.style.cursor = "grabbing";
+        lastX = e.clientX;
+        totalDrag = 0;
+        velYaw = 0;
+        container.style.cursor = "grabbing";
         e.preventDefault();
-    });
-
-    window.addEventListener("mousemove", e => {
+    }
+    function onMouseMove(e) {
         if (!isDragging) return;
-        const dx = e.clientX - lastDragX;
-        totalDragDist += Math.abs(dx);
-        velocity = dx * 0.25;
-        currentAngle += velocity;
-        setAngle(currentAngle);
-        lastDragX = e.clientX;
-    });
-
-    window.addEventListener("mouseup", () => {
-        if (!isDragging) return;
+        const dx = e.clientX - lastX;
+        totalDrag += Math.abs(dx);
+        velYaw = -dx * 0.0025;
+        yaw += velYaw;
+        lastX = e.clientX;
+    }
+    function onMouseUp() {
         isDragging = false;
-        scene.style.cursor = "";
-    });
-
-    scene.addEventListener("click", e => {
-        if (totalDragDist > 8) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-        }
-    }, true);
-
-    scene.addEventListener("wheel", e => {
+        container.style.cursor = "";
+    }
+    function onWheel(e) {
         e.preventDefault();
-        velocity += (e.deltaX + e.deltaY) * 0.04;
-    }, { passive: false });
-
-    scene.addEventListener("touchstart", e => {
+        velYaw -= (e.deltaX + e.deltaY) * 0.0002;
+    }
+    function onTouchStart(e) {
         isDragging = true;
-        lastDragX = e.touches[0].clientX;
-        totalDragDist = 0;
-        velocity = 0;
-    }, { passive: true });
-
-    scene.addEventListener("touchmove", e => {
+        lastX = e.touches[0].clientX;
+        totalDrag = 0;
+        velYaw = 0;
+    }
+    function onTouchMove(e) {
         if (!isDragging) return;
-        const dx = e.touches[0].clientX - lastDragX;
-        totalDragDist += Math.abs(dx);
-        velocity = dx * 0.2;
-        currentAngle += velocity;
-        setAngle(currentAngle);
-        lastDragX = e.touches[0].clientX;
-    }, { passive: true });
+        const dx = e.touches[0].clientX - lastX;
+        totalDrag += Math.abs(dx);
+        velYaw = -dx * 0.002;
+        yaw += velYaw;
+        lastX = e.touches[0].clientX;
+    }
+    function onTouchEnd() { isDragging = false; }
+    function onClick(e) {
+        if (totalDrag > 8) { e.preventDefault(); e.stopImmediatePropagation(); }
+    }
+    function onResize() {
+        const W2 = container.clientWidth, H2 = container.clientHeight;
+        if (!W2 || !H2) return;
+        camera.aspect = W2 / H2;
+        camera.updateProjectionMatrix();
+        renderer.setSize(W2, H2);
+    }
 
-    scene.addEventListener("touchend", () => { isDragging = false; });
+    renderer.domElement.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    renderer.domElement.addEventListener("click", onClick, true);
+    renderer.domElement.addEventListener("wheel", onWheel, { passive: false });
+    renderer.domElement.addEventListener("touchstart", onTouchStart, { passive: true });
+    renderer.domElement.addEventListener("touchmove", onTouchMove, { passive: true });
+    renderer.domElement.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("resize", onResize);
+
+    _galCleanup = () => {
+        cancelAnimationFrame(animId);
+        renderer.domElement.removeEventListener("mousedown", onMouseDown);
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+        renderer.domElement.removeEventListener("click", onClick, true);
+        renderer.domElement.removeEventListener("wheel", onWheel);
+        renderer.domElement.removeEventListener("touchstart", onTouchStart);
+        renderer.domElement.removeEventListener("touchmove", onTouchMove);
+        renderer.domElement.removeEventListener("touchend", onTouchEnd);
+        window.removeEventListener("resize", onResize);
+    };
 }
 
 /* ============================================================
-   RENDER PROJECTS — 3D CYLINDER
+   RENDER PROJECTS — 3D GALLERY
 ============================================================ */
-export function renderProjects(containerId, category = null) {
+export async function renderProjects(containerId, category = null) {
     const placeholder = document.getElementById(containerId);
     if (!placeholder) return;
 
@@ -364,7 +384,7 @@ export function renderProjects(containerId, category = null) {
     _cylContainer = container;
 
     placeholder.replaceWith(container);
-    buildCylinder(items, container);
+    await buildGallery3D(items, container);
 }
 
 /* ============================================================
@@ -386,7 +406,7 @@ export function initFilterBar() {
                 || p.category === filter
             );
 
-            if (_cylContainer) buildCylinder(visible, _cylContainer);
+            if (_cylContainer) buildGallery3D(visible, _cylContainer);
         });
     });
 }
