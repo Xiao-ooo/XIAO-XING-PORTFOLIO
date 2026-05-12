@@ -171,7 +171,180 @@ function buildLoopStrip(id) {
 }
 
 /* ============================================================
-   RENDER PROJECTS
+   3D CYLINDER GALLERY
+============================================================ */
+let _allCylItems = [];
+let _cylContainer = null;
+let _cylAnimId = null;
+
+function buildCylinder(items, container) {
+    if (_cylAnimId) { cancelAnimationFrame(_cylAnimId); _cylAnimId = null; }
+    container.innerHTML = "";
+
+    const countEl = document.querySelector(".gallery-count-label");
+    if (countEl) countEl.textContent = `${items.length} works`;
+
+    if (!items.length) {
+        const empty = document.createElement("div");
+        empty.className = "gallery-empty";
+        empty.textContent = "No works found";
+        container.appendChild(empty);
+        return;
+    }
+
+    const N = items.length;
+    const CARD_W = 180;
+    const STRING_H = 70;
+    const IMG_H = 116;
+    const INFO_H = 78;
+    const CARD_H = IMG_H + INFO_H;
+    const UNIT_H = STRING_H + CARD_H;
+
+    const radius = Math.max(380, N * 44);
+    const perspective = Math.round(radius * 2.6);
+    const STEP = 360 / N;
+    const TILTS = [-3, 4, -2, 5, -4, 2, 3, -5, 1, -1, 4, -3];
+
+    const scene = document.createElement("div");
+    scene.className = "gallery-scene";
+    scene.style.setProperty("--gal-persp", perspective + "px");
+
+    const cylinder = document.createElement("div");
+    cylinder.className = "gallery-cylinder";
+
+    items.forEach((p, i) => {
+        const thumb = p.type === "gallery" ? p.images[0]
+            : p.type === "video" ? p.thumbnail
+            : p.src || "";
+
+        const angle = i * STEP;
+        const tilt = TILTS[i % TILTS.length];
+
+        const wrap = document.createElement("div");
+        wrap.className = "gal-item-wrap";
+        wrap.style.transform = [
+            `rotateY(${angle}deg)`,
+            `translateZ(${radius}px)`,
+            `translateX(-${CARD_W / 2}px)`,
+            `translateY(-${UNIT_H / 2}px)`
+        ].join(" ");
+
+        const strEl = document.createElement("div");
+        strEl.className = "gal-string";
+
+        const card = document.createElement("a");
+        card.className = "gal-postcard";
+        card.href = `project.html?id=${p.id}`;
+        card.dataset.year = p.year;
+        card.dataset.category = p.category || "";
+        card.style.transform = `rotate(${tilt}deg)`;
+        card.draggable = false;
+
+        card.innerHTML = `
+            <div class="gal-postcard-img">
+                ${thumb ? `<img src="${thumb}" alt="${p.title}" loading="lazy" draggable="false">` : ""}
+            </div>
+            <div class="gal-postcard-info">
+                <span class="gal-postcard-cat">${(p.category || "").replace(/-/g, " ")}</span>
+                <span class="gal-postcard-title">${p.title}</span>
+                <span class="gal-postcard-year">${p.year}</span>
+            </div>
+        `;
+
+        wrap.appendChild(strEl);
+        wrap.appendChild(card);
+        cylinder.appendChild(wrap);
+    });
+
+    const hint = document.createElement("div");
+    hint.className = "gal-drag-hint";
+    hint.textContent = "drag or scroll to explore →";
+
+    scene.appendChild(cylinder);
+    scene.appendChild(hint);
+    container.appendChild(scene);
+
+    /* --- Rotation interaction --- */
+    let currentAngle = 0;
+    let velocity = 0;
+    let isDragging = false;
+    let lastDragX = 0;
+    let totalDragDist = 0;
+
+    function setAngle(a) {
+        cylinder.style.transform = `rotateY(${a}deg)`;
+    }
+
+    function tick() {
+        if (!isDragging) {
+            velocity *= 0.94;
+            if (Math.abs(velocity) < 0.004) velocity = 0;
+            currentAngle += velocity;
+            setAngle(currentAngle);
+        }
+        _cylAnimId = requestAnimationFrame(tick);
+    }
+    tick();
+
+    scene.addEventListener("mousedown", e => {
+        isDragging = true;
+        lastDragX = e.clientX;
+        totalDragDist = 0;
+        velocity = 0;
+        scene.style.cursor = "grabbing";
+        e.preventDefault();
+    });
+
+    window.addEventListener("mousemove", e => {
+        if (!isDragging) return;
+        const dx = e.clientX - lastDragX;
+        totalDragDist += Math.abs(dx);
+        velocity = dx * 0.25;
+        currentAngle += velocity;
+        setAngle(currentAngle);
+        lastDragX = e.clientX;
+    });
+
+    window.addEventListener("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        scene.style.cursor = "";
+    });
+
+    scene.addEventListener("click", e => {
+        if (totalDragDist > 8) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }, true);
+
+    scene.addEventListener("wheel", e => {
+        e.preventDefault();
+        velocity += (e.deltaX + e.deltaY) * 0.04;
+    }, { passive: false });
+
+    scene.addEventListener("touchstart", e => {
+        isDragging = true;
+        lastDragX = e.touches[0].clientX;
+        totalDragDist = 0;
+        velocity = 0;
+    }, { passive: true });
+
+    scene.addEventListener("touchmove", e => {
+        if (!isDragging) return;
+        const dx = e.touches[0].clientX - lastDragX;
+        totalDragDist += Math.abs(dx);
+        velocity = dx * 0.2;
+        currentAngle += velocity;
+        setAngle(currentAngle);
+        lastDragX = e.touches[0].clientX;
+    }, { passive: true });
+
+    scene.addEventListener("touchend", () => { isDragging = false; });
+}
+
+/* ============================================================
+   RENDER PROJECTS — 3D CYLINDER
 ============================================================ */
 export function renderProjects(containerId, category = null) {
     const placeholder = document.getElementById(containerId);
@@ -184,68 +357,14 @@ export function renderProjects(containerId, category = null) {
     }
     items.sort((a, b) => b.year - a.year);
 
-    const wrap = document.createElement("div");
-    wrap.classList.add("projects-wrap");
+    _allCylItems = items;
 
-    const countEl = document.querySelector(".gallery-count-label");
-    if (countEl) countEl.textContent = `${items.length} works`;
+    const container = document.createElement("div");
+    container.className = "cyl-container";
+    _cylContainer = container;
 
-    const byYear = {};
-    items.forEach(p => {
-        if (!byYear[p.year]) byYear[p.year] = [];
-        byYear[p.year].push(p);
-    });
-
-    Object.keys(byYear).sort((a, b) => b - a).forEach(year => {
-        const marker = document.createElement("div");
-        marker.classList.add("year-marker", "reveal");
-        marker.dataset.year = year;
-        marker.innerHTML = `
-            <span class="year-marker-num">${year}</span>
-            <span class="year-marker-line"></span>
-        `;
-        wrap.appendChild(marker);
-
-        const grid = document.createElement("div");
-        grid.classList.add("projects-grid");
-        grid.dataset.year = year;
-
-        byYear[year].forEach((p, i) => {
-            const thumb = p.type === "gallery" ? p.images[0]
-                : p.type === "video" ? p.thumbnail
-                    : p.src || "";
-
-            const el = document.createElement("a");
-            el.classList.add("project", "reveal");
-            el.href = `project.html?id=${p.id}`;
-            el.dataset.year = p.year;
-            el.dataset.category = p.category || "";
-            el.style.transitionDelay = `${(i % 6) * 0.06}s`;
-            el.innerHTML = `
-                <div class="project-media">
-                    ${thumb ? `<img src="${thumb}" alt="${p.title}" loading="lazy">` : ""}
-                    ${p.type === "video" ? `<span class="proj-badge">&#9654;</span>` : ""}
-                    ${p.type === "gallery" ? `<span class="proj-badge">${p.images.length} &#8594;</span>` : ""}
-                </div>
-                <div class="project-vignette"></div>
-                <div class="project-view">View</div>
-                <div class="project-info">
-                    <div class="project-meta">
-                        <span class="project-category">${p.category?.replace("-", " ") || ""}</span>
-                        <span class="project-year">${p.year}</span>
-                    </div>
-                    <h3 class="project-title">${p.title}</h3>
-                    ${p.description ? `<p class="project-desc">${p.description}</p>` : ""}
-                </div>
-            `;
-            grid.appendChild(el);
-        });
-
-        wrap.appendChild(grid);
-    });
-
-    placeholder.replaceWith(wrap);
-    observeReveal(wrap);
+    placeholder.replaceWith(container);
+    buildCylinder(items, container);
 }
 
 /* ============================================================
@@ -261,28 +380,13 @@ export function initFilterBar() {
             btn.classList.add("active");
 
             const filter = btn.dataset.filter;
-            const cards = document.querySelectorAll(".project");
-            const markers = document.querySelectorAll(".year-marker");
-            let visible = 0;
+            const visible = _allCylItems.filter(p =>
+                filter === "all"
+                || String(p.year) === filter
+                || p.category === filter
+            );
 
-            cards.forEach(card => {
-                const show = filter === "all"
-                    || card.dataset.year === filter
-                    || card.dataset.category === filter;
-                card.classList.toggle("hidden", !show);
-                if (show) visible++;
-            });
-
-            markers.forEach(marker => {
-                const grid = marker.nextElementSibling;
-                if (!grid) return;
-                const anyVisible = [...grid.querySelectorAll(".project")]
-                    .some(c => !c.classList.contains("hidden"));
-                marker.style.display = anyVisible ? "" : "none";
-            });
-
-            const countEl = document.querySelector(".gallery-count-label");
-            if (countEl) countEl.textContent = `${visible} works`;
+            if (_cylContainer) buildCylinder(visible, _cylContainer);
         });
     });
 }
@@ -315,4 +419,42 @@ document.addEventListener("DOMContentLoaded", () => {
     observeReveal();
     if (document.getElementById("ctCollage")) buildCollage("ctCollage");
     if (document.getElementById("loopTrack")) buildLoopStrip("loopTrack");
+
+    /* Hero title — character stagger */
+    const heroTitle = document.querySelector(".intro-inner h1");
+    if (heroTitle) {
+        const original = heroTitle.textContent;
+        heroTitle.setAttribute("aria-label", original);
+        let delay = 0.12;
+        heroTitle.innerHTML = [...original].map(ch => {
+            if (ch === " ") return "<span style='display:inline-block;width:.28em'></span>";
+            const span = `<span class="char" style="transition-delay:${delay.toFixed(2)}s">${ch}</span>`;
+            delay += 0.055;
+            return span;
+        }).join("");
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            heroTitle.querySelectorAll(".char").forEach(c => c.classList.add("in"));
+        }));
+    }
+
+    /* Intro supporting elements — staggered fade-in */
+    const introFades = [
+        document.querySelector(".intro-eyebrow"),
+        document.querySelector(".intro-divider"),
+        document.querySelector(".intro-sub"),
+    ];
+    introFades.forEach((el, i) => {
+        if (!el) return;
+        el.style.opacity = "0";
+        el.style.transform = "translateY(14px)";
+        el.style.transition = "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)";
+        el.style.transitionDelay = (0.55 + i * 0.18) + "s";
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        introFades.forEach(el => {
+            if (!el) return;
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+        });
+    }));
 });

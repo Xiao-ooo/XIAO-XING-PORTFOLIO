@@ -338,6 +338,20 @@ export const projects = [
     },
     {
         id: "proj-020",
+        title: "爱在手中系列 Love Lives in the Hand Series",
+        year: 2026,
+        category: "photography",
+        type: "gallery",
+        images: [
+            "https://res.cloudinary.com/dilcfjytt/image/upload/LoveLivesinTheHand1.jpeg",
+            "https://res.cloudinary.com/dilcfjytt/image/upload/LoveLivesinTheHand2.jpeg"
+        ],
+        medium: "Canon EOS R6 Mark II — Nanlite portable lighting — supermarket & home",
+        description: "A series of close photographs following my mother through the spaces she inhabits — the supermarket aisles on Saturday mornings, the kitchen, the bedroom floor she mops at 10PM. The title 爱在手中 [Aì Zài Shǒu Zhōng] — Love Lives in the Hands — emerged from watching her through a lens: she never sits still, she never stops working, and for a long time I couldn't understand if that was love or if she just wasn't hearing me. Under the lens I finally could see it. She loved me louder than my words. A portrait series about the language a mother speaks when words aren't enough, and the slow work of learning to listen.",
+        featured: true
+    },
+    {
+        id: "proj-024",
         title: "Mirage",
         year: 2026,
         category: "visual",

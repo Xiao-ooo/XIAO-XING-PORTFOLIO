@@ -7,7 +7,7 @@
   <title>XIAO XING</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -107,11 +107,6 @@
         <div class="loop-track" id="loopTrack"></div>
       </div>
     </div>
-    <div class="hscroll-hint reveal">
-      <span class="hscroll-line"></span>
-      <span>loops forever — drag to seek</span>
-      <span class="hscroll-line"></span>
-    </div>
   </section>
 
   <section id="contact">
@@ -140,6 +135,8 @@
       nav.classList.toggle("scrolled", window.scrollY > 80);
     }, { passive: true });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="cursor.js"></script>
 </body>
 
 </html>

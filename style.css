@@ -9,13 +9,13 @@
 :root {
     --black: #020202;
     --white: #f4f0eb;
-    --surface: #0c0c0c;
-    --surface-2: #111;
-    --dim: rgba(255, 255, 255, 0.32);
-    --mid: rgba(255, 255, 255, 0.58);
-    --accent: #b9a07a;
-    --accent-lo: rgba(185, 160, 122, 0.10);
-    --serif: 'Playfair Display', Georgia, serif;
+    --surface: #141414;
+    --surface-2: #1c1c1c;
+    --dim: rgba(255, 255, 255, 0.50);
+    --mid: rgba(255, 255, 255, 0.76);
+    --accent: #c8ff47;
+    --accent-lo: rgba(200, 255, 71, 0.12);
+    --serif: 'Playfair Display', serif;
     --sans: 'Montserrat', sans-serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
     --ease2: cubic-bezier(0.45, 0, 0.55, 1);
@@ -32,7 +32,7 @@ html {
     font-family: var(--sans);
     font-size: 17px;
     -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 body {
@@ -66,7 +66,7 @@ video {
 }
 
 * {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M4 2 L4 17 L8 13 L11 19 L13 18 L10 12 L15 12 Z' fill='%23000' stroke='%23fff' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2, auto;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cpath d='M2 1 L2 18 L6 13 L9 20 L12 18 L9 11 L14 11 Z' fill='%23020202' stroke='%23c8ff47' stroke-width='1.5' stroke-linejoin='miter'/%3E%3C/svg%3E") 2 1, auto;
 }
 
 a,
@@ -76,9 +76,10 @@ button,
 .hcard,
 .related-card,
 .gal-nav,
+.gal-postcard,
 .thumb,
 .filter-btn {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M4 2 L4 17 L8 13 L11 19 L13 18 L10 12 L15 12 Z' fill='%23000' stroke='%23fff' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2, pointer;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cpath d='M2 1 L2 18 L6 13 L9 20 L12 18 L9 11 L14 11 Z' fill='%23020202' stroke='%23c8ff47' stroke-width='1.5' stroke-linejoin='miter'/%3E%3C/svg%3E") 2 1, pointer;
 }
 
 /* ===== NAV ===== */
@@ -270,9 +271,9 @@ nav a.active::after {
 .intro-inner h1 {
     font-family: var(--serif);
     font-size: clamp(4.5rem, 10vw, 12rem);
-    font-weight: 400;
+    font-weight: 800;
     font-style: normal;
-    letter-spacing: .28em;
+    letter-spacing: .16em;
     line-height: 1;
     color: var(--white);
 }
@@ -368,14 +369,13 @@ nav a.active::after {
 .about-sticky-title {
     font-family: var(--serif);
     font-size: clamp(2.4rem, 3.8vw, 4.2rem);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.14;
     color: var(--white);
 }
 
 .about-sticky-title em {
     font-style: italic;
-    color: var(--accent);
 }
 
 .about-sticky-cue {
@@ -476,15 +476,14 @@ nav a.active::after {
 .about-closing-text {
     font-family: var(--serif);
     font-size: clamp(1.6rem, 2.8vw, 2.8rem);
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.18);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.22);
     line-height: 1.2;
     margin-bottom: 36px;
 }
 
 .about-closing-text em {
     font-style: italic;
-    color: rgba(185, 160, 122, 0.5);
 }
 
 .about-drop-line {
@@ -519,14 +518,13 @@ nav a.active::after {
 .ct-header-left h2 {
     font-family: var(--serif);
     font-size: clamp(2.2rem, 4vw, 4.6rem);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.05;
     letter-spacing: .02em;
 }
 
 .ct-header-left h2 em {
     font-style: italic;
-    color: var(--accent);
 }
 
 .ct-header-right {
@@ -641,13 +639,13 @@ nav a.active::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(.8) saturate(.88);
+    filter: brightness(1) saturate(1);
     transition: transform var(--t4) var(--ease), filter var(--t2);
 }
 
 .collage-card:hover img {
     transform: scale(1.055);
-    filter: brightness(.68) saturate(1.05);
+    filter: brightness(.82) saturate(1.08);
 }
 
 .collage-overlay {
@@ -683,7 +681,8 @@ nav a.active::after {
 .collage-title {
     font-family: var(--serif);
     font-size: 1rem;
-    font-style: italic;
+    font-style: normal;
+    font-weight: 700;
     color: var(--white);
     display: block;
     line-height: 1.2;
@@ -737,14 +736,13 @@ nav a.active::after {
 .hscroll-header h2 {
     font-family: var(--serif);
     font-size: clamp(2rem, 3.4vw, 3.8rem);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.05;
     letter-spacing: .02em;
 }
 
 .hscroll-header h2 em {
     font-style: italic;
-    color: var(--accent);
 }
 
 .loop-strip-outer {
@@ -825,14 +823,14 @@ nav a.active::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(.78) saturate(.85);
+    filter: brightness(1) saturate(1);
     transition: transform var(--t4) var(--ease), filter var(--t2);
     content-visibility: auto;
 }
 
 .hcard:hover .hcard-img img {
     transform: scale(1.06);
-    filter: brightness(.66) saturate(1.05);
+    filter: brightness(.82) saturate(1.08);
 }
 
 .hcard-info {
@@ -858,8 +856,8 @@ nav a.active::after {
 .hcard-title {
     font-family: var(--serif);
     font-size: 1rem;
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 700;
+    font-style: normal;
     color: var(--white);
     line-height: 1.22;
 }
@@ -915,7 +913,7 @@ nav a.active::after {
 .contact-left h2 {
     font-family: var(--serif);
     font-size: clamp(2.4rem, 4.6vw, 5rem);
-    font-weight: 400;
+    font-weight: 700;
     line-height: .96;
     letter-spacing: .02em;
     margin: 16px 0 32px;
@@ -924,7 +922,6 @@ nav a.active::after {
 
 .contact-left h2 em {
     font-style: italic;
-    color: var(--accent);
 }
 
 .contact-email {
@@ -1014,14 +1011,13 @@ nav a.active::after {
 .page-hero h1 {
     font-family: var(--serif);
     font-size: clamp(3rem, 5.8vw, 7rem);
-    font-weight: 400;
+    font-weight: 800;
     line-height: .95;
     letter-spacing: .02em;
 }
 
 .page-hero h1 em {
     font-style: italic;
-    color: var(--accent);
 }
 
 .page-hero-sub {
@@ -1116,9 +1112,9 @@ nav a.active::after {
 .year-marker-num {
     font-family: var(--serif);
     font-size: 4.5rem;
-    font-weight: 400;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.06);
+    font-weight: 800;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.07);
     line-height: 1;
     flex-shrink: 0;
     user-select: none;
@@ -1209,13 +1205,13 @@ nav a.active::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(.84) saturate(.88);
+    filter: brightness(1) saturate(1);
     transition: transform var(--t4) var(--ease), filter var(--t2);
 }
 
 .project:hover .project-media img {
     transform: scale(1.055);
-    filter: brightness(.7) saturate(1.04);
+    filter: brightness(.8) saturate(1.06);
 }
 
 .project-vignette {
@@ -1294,8 +1290,8 @@ nav a.active::after {
 .project-title {
     font-family: var(--serif);
     font-size: clamp(.96rem, 1.2vw, 1.36rem);
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 700;
+    font-style: normal;
     line-height: 1.18;
     transform: translateY(4px);
     transition: transform var(--t2) var(--ease);
@@ -1427,8 +1423,8 @@ nav a.active::after {
 .detail-title-block h1 {
     font-family: var(--serif);
     font-size: clamp(2.6rem, 5vw, 6.5rem);
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 800;
+    font-style: normal;
     line-height: .94;
 }
 
@@ -1443,8 +1439,8 @@ nav a.active::after {
 .detail-year {
     font-family: var(--serif);
     font-size: 1.7rem;
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 700;
+    font-style: normal;
     color: var(--accent);
     line-height: 1;
 }
@@ -1673,14 +1669,14 @@ nav a.active::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: .44;
-    filter: grayscale(.25);
+    opacity: .72;
+    filter: grayscale(.15);
     transition: transform var(--t4) var(--ease), opacity var(--t2), filter var(--t2);
 }
 
 .related-card:hover .related-thumb img {
     transform: scale(1.055);
-    opacity: .9;
+    opacity: 1;
     filter: none;
 }
 
@@ -1691,7 +1687,8 @@ nav a.active::after {
 .related-title {
     font-family: var(--serif);
     font-size: .9rem;
-    font-style: italic;
+    font-style: normal;
+    font-weight: 700;
     color: var(--white);
     line-height: 1.22;
 }
@@ -1988,10 +1985,10 @@ body.light {
     --white: #1a1a18;
     --surface: #e8e2d9;
     --surface-2: #ddd7ce;
-    --dim: rgba(0, 0, 0, 0.38);
-    --mid: rgba(0, 0, 0, 0.60);
-    --accent: #8a6a3a;
-    --accent-lo: rgba(138, 106, 58, 0.10);
+    --dim: rgba(0, 0, 0, 0.50);
+    --mid: rgba(0, 0, 0, 0.72);
+    --accent: #3e7a00;
+    --accent-lo: rgba(62, 122, 0, 0.10);
     background: #f2ede6;
     color: #1a1a18;
 }
@@ -2070,7 +2067,7 @@ body.light ::-webkit-scrollbar-thumb {
 }
 
 body.light * {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M4 2 L4 17 L8 13 L11 19 L13 18 L10 12 L15 12 Z' fill='%23fff' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2, auto;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cpath d='M2 1 L2 18 L6 13 L9 20 L12 18 L9 11 L14 11 Z' fill='%23f2ede6' stroke='%233e7a00' stroke-width='1.5' stroke-linejoin='miter'/%3E%3C/svg%3E") 2 1, auto;
 }
 
 body.light a,
@@ -2080,9 +2077,10 @@ body.light .collage-card,
 body.light .hcard,
 body.light .related-card,
 body.light .gal-nav,
+body.light .gal-postcard,
 body.light .thumb,
 body.light .filter-btn {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M4 2 L4 17 L8 13 L11 19 L13 18 L10 12 L15 12 Z' fill='%23fff' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2, pointer;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cpath d='M2 1 L2 18 L6 13 L9 20 L12 18 L9 11 L14 11 Z' fill='%23f2ede6' stroke='%233e7a00' stroke-width='1.5' stroke-linejoin='miter'/%3E%3C/svg%3E") 2 1, pointer;
 }
 
 body.light .theme-slider {
@@ -2103,4 +2101,200 @@ body.light .theme-slider {
 
 body.light .detail-medium {
     border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+/* ===== 3D GALLERY CYLINDER ===== */
+.cyl-container {
+    padding-bottom: 60px;
+}
+
+.gallery-scene {
+    width: 100%;
+    height: 72vh;
+    min-height: 460px;
+    perspective: var(--gal-persp, 1200px);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.gallery-scene::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+    background:
+        linear-gradient(to bottom, var(--black) 0%, transparent 14%, transparent 86%, var(--black) 100%),
+        linear-gradient(to right, var(--black) 0%, transparent 10%, transparent 90%, var(--black) 100%);
+}
+
+.gallery-cylinder {
+    position: relative;
+    width: 1px;
+    height: 1px;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.gal-item-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 180px;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.gal-string {
+    width: 1px;
+    height: 70px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(200, 255, 71, 0.32) 100%);
+    margin: 0 auto;
+}
+
+.gal-postcard {
+    display: block;
+    width: 180px;
+    background: var(--surface);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow:
+        0 10px 32px rgba(0, 0, 0, 0.6),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-origin: top center;
+    transition: box-shadow 0.4s ease;
+}
+
+.gal-postcard:hover {
+    box-shadow:
+        0 18px 52px rgba(0, 0, 0, 0.75),
+        0 0 22px rgba(200, 255, 71, 0.15);
+}
+
+.gal-postcard-img {
+    width: 100%;
+    height: 116px;
+    overflow: hidden;
+    background: var(--surface-2);
+}
+
+.gal-postcard-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gal-postcard:hover .gal-postcard-img img {
+    transform: scale(1.07);
+}
+
+.gal-postcard-info {
+    padding: 9px 12px 11px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gal-postcard-cat {
+    display: block;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3px;
+}
+
+.gal-postcard-title {
+    display: block;
+    font-family: var(--serif);
+    font-size: 12px;
+    line-height: 1.3;
+    color: var(--white);
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gal-postcard-year {
+    display: block;
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+}
+
+.gal-drag-hint {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--dim);
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0;
+    z-index: 5;
+    animation: hintFadeInOut 5s ease 0.8s forwards;
+}
+
+@keyframes hintFadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    78% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.gallery-empty {
+    padding: 80px var(--pad);
+    text-align: center;
+    font-size: .62rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+body.light .gal-postcard {
+    background: #faf7f2;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+}
+
+body.light .gal-postcard:hover {
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22), 0 0 16px rgba(62, 122, 0, 0.1);
+}
+
+body.light .gal-postcard-info {
+    border-top-color: rgba(0, 0, 0, 0.07);
+}
+
+body.light .gal-postcard-title {
+    color: var(--black);
+}
+
+body.light .gal-string {
+    background: linear-gradient(to bottom, transparent 0%, rgba(62, 122, 0, 0.28) 100%);
+}
+
+/* ===== HERO TITLE CHARACTER ANIMATION ===== */
+.intro-inner h1 .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(72px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intro-inner h1 .char.in {
+    opacity: 1;
+    transform: translateY(0);
 }
