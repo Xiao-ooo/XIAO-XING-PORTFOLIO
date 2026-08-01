@@ -10,14 +10,6 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-    }
-  }
-  </script>
 </head>
 
 <body>
@@ -61,7 +53,7 @@
     <span class="gallery-count-label"></span>
   </div>
 
-  <section id="projects">
+  <section id="projects" aria-label="Visual Illustration projects">
     <div id="projectsContainer" data-category="visual"></div>
   </section>
 
@@ -75,20 +67,6 @@
     window.addEventListener("scroll", () => {
       nav.classList.toggle("scrolled", window.scrollY > 40);
     }, { passive: true });
-  </script>
-  <script>
-    (function () {
-      var tt = document.getElementById("themeToggle"), tl = document.getElementById("themeLabel");
-      if (tt) {
-        tt.checked = localStorage.getItem("theme") === "light";
-        if (tl) tl.textContent = tt.checked ? "Light" : "Dark";
-        tt.addEventListener("change", function () {
-          document.body.classList.toggle("light", tt.checked);
-          if (tl) tl.textContent = tt.checked ? "Light" : "Dark";
-          localStorage.setItem("theme", tt.checked ? "light" : "dark");
-        });
-      }
-    })();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="cursor.js"></script>

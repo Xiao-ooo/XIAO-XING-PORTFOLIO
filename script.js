@@ -64,7 +64,7 @@ function buildCollage(id) {
 }
 
 /* ============================================================
-   INFINITE LOOP STRIP
+   USER-CONTROLLED HIGHLIGHTS STRIP
 ============================================================ */
 function buildLoopStrip(id) {
     const track = document.getElementById(id);
@@ -81,7 +81,7 @@ function buildLoopStrip(id) {
     if (!source.length) return;
 
     const frag = document.createDocumentFragment();
-    [...source, ...source].forEach(p => {
+    source.forEach(p => {
         const thumb = p.type === "gallery" ? p.images[0]
             : p.type === "video" ? p.thumbnail
                 : p.src || "";
@@ -103,71 +103,6 @@ function buildLoopStrip(id) {
         frag.appendChild(card);
     });
     track.appendChild(frag);
-
-    const duration = Math.max(source.length * 7, 28);
-    track.style.animation = "none";
-    track.getBoundingClientRect();
-    track.style.animation = `loopScroll ${duration}s linear infinite`;
-
-    let isDragging = false, dragStartX = 0, pausedAt = 0;
-
-    function getX(el) {
-        return new DOMMatrix(window.getComputedStyle(el).transform).m41;
-    }
-
-    function resumeFrom(currentX) {
-        const half = track.scrollWidth / 2;
-        if (!half) return;
-        const raw = Math.abs(currentX) / half;
-        const progress = isNaN(raw) ? 0 : Math.min(raw, 1);
-        track.style.transform = "";
-        track.style.animation = `loopScroll ${duration}s linear infinite`;
-        track.style.animationDelay = `-${progress * duration}s`;
-    }
-
-    track.addEventListener("mousedown", e => {
-        isDragging = true;
-        dragStartX = e.clientX;
-        pausedAt = getX(track);
-        track.style.animation = "none";
-        track.style.transform = `translateX(${pausedAt}px)`;
-    });
-
-    window.addEventListener("mousemove", e => {
-        if (!isDragging) return;
-        const half = track.scrollWidth / 2;
-        if (!half) return;
-        let newX = pausedAt + (e.clientX - dragStartX);
-        newX = ((newX % -half) - half) % -half;
-        if (newX > 0) newX -= half;
-        track.style.transform = `translateX(${newX}px)`;
-    });
-
-    window.addEventListener("mouseup", () => {
-        if (!isDragging) return;
-        isDragging = false;
-        resumeFrom(getX(track));
-    });
-
-    track.addEventListener("touchstart", e => {
-        dragStartX = e.touches[0].clientX;
-        pausedAt = getX(track);
-        track.style.animation = "none";
-        track.style.transform = `translateX(${pausedAt}px)`;
-    }, { passive: true });
-
-    track.addEventListener("touchmove", e => {
-        const half = track.scrollWidth / 2;
-        if (!half) return;
-        let newX = pausedAt + (e.touches[0].clientX - dragStartX);
-        newX = ((newX % -half) - half) % -half;
-        if (newX > 0) newX -= half;
-        track.style.transform = `translateX(${newX}px)`;
-    }, { passive: true });
-
-    track.addEventListener("touchend", () => {
-        resumeFrom(getX(track));
-    });
 }
 
 /* ============================================================
@@ -176,6 +111,53 @@ function buildLoopStrip(id) {
 let _allCylItems = [];
 let _cylContainer = null;
 let _galCleanup = null;
+
+function projectThumbnail(project) {
+    if (project.type === "gallery") return project.images?.[0] || "";
+    if (project.type === "video") return project.thumbnail || project.src || "";
+    return project.src || "";
+}
+
+function buildProjectGrid(items, container) {
+    if (_galCleanup) { _galCleanup(); _galCleanup = null; }
+    container.innerHTML = "";
+
+    const countEl = document.querySelector(".gallery-count-label");
+    if (countEl) countEl.textContent = `${items.length} ${items.length === 1 ? "work" : "works"}`;
+
+    if (!items.length) {
+        const empty = document.createElement("p");
+        empty.className = "gallery-empty";
+        empty.textContent = "No works found";
+        container.appendChild(empty);
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    items.forEach((project, index) => {
+        const thumb = projectThumbnail(project);
+        const card = document.createElement("a");
+        card.className = "archive-card reveal";
+        card.href = `project.html?id=${encodeURIComponent(project.id)}`;
+        card.style.transitionDelay = `${Math.min(index, 7) * 0.055}s`;
+        card.innerHTML = `
+            <div class="archive-card-media">
+                ${thumb ? `<img src="${thumb}" alt="${project.title}" loading="lazy" decoding="async">` : ""}
+            </div>
+            <div class="archive-card-info">
+                <div>
+                    <span class="archive-card-category">${(project.category || "").replace(/-/g, " ")}</span>
+                    <h2 class="archive-card-title">${project.title}</h2>
+                </div>
+                <span class="archive-card-year">${project.year}</span>
+            </div>
+        `;
+        fragment.appendChild(card);
+    });
+
+    container.appendChild(fragment);
+    observeReveal(container);
+}
 
 async function buildGallery3D(items, container) {
     if (_galCleanup) { _galCleanup(); _galCleanup = null; }
@@ -272,10 +254,15 @@ async function buildGallery3D(items, container) {
 
     let yaw = 0;
     let velYaw = 0;
+    let isPointerDown = false;
     let isDragging = false;
+    let activePointerId = null;
     let lastX = 0;
     let totalDrag = 0;
+    let suppressClick = false;
     let animId;
+
+    const DRAG_THRESHOLD = 7;
 
     function animate() {
         if (!isDragging) {
@@ -289,47 +276,57 @@ async function buildGallery3D(items, container) {
     }
     animId = requestAnimationFrame(animate);
 
-    function onMouseDown(e) {
-        isDragging = true;
+    function onPointerDown(e) {
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        isPointerDown = true;
+        isDragging = false;
+        activePointerId = e.pointerId;
         lastX = e.clientX;
         totalDrag = 0;
         velYaw = 0;
-        container.style.cursor = "grabbing";
-        e.preventDefault();
     }
-    function onMouseMove(e) {
-        if (!isDragging) return;
+    function onPointerMove(e) {
+        if (!isPointerDown || e.pointerId !== activePointerId) return;
         const dx = e.clientX - lastX;
         totalDrag += Math.abs(dx);
+
+        if (!isDragging && totalDrag < DRAG_THRESHOLD) {
+            lastX = e.clientX;
+            return;
+        }
+
+        if (!isDragging) {
+            isDragging = true;
+            container.classList.add("is-dragging");
+            renderer.domElement.setPointerCapture?.(e.pointerId);
+        }
+
+        /* Only cancel native link/image dragging once this is a real rotation. */
+        e.preventDefault();
         velYaw = -dx * 0.0025;
         yaw += velYaw;
         lastX = e.clientX;
     }
-    function onMouseUp() {
+    function finishPointer(e) {
+        if (activePointerId !== null && e.pointerId !== activePointerId) return;
+        suppressClick = isDragging;
+        isPointerDown = false;
         isDragging = false;
-        container.style.cursor = "";
+        container.classList.remove("is-dragging");
+        if (activePointerId !== null && renderer.domElement.hasPointerCapture?.(activePointerId)) {
+            renderer.domElement.releasePointerCapture(activePointerId);
+        }
+        activePointerId = null;
     }
     function onWheel(e) {
         e.preventDefault();
         velYaw -= (e.deltaX + e.deltaY) * 0.0002;
     }
-    function onTouchStart(e) {
-        isDragging = true;
-        lastX = e.touches[0].clientX;
-        totalDrag = 0;
-        velYaw = 0;
-    }
-    function onTouchMove(e) {
-        if (!isDragging) return;
-        const dx = e.touches[0].clientX - lastX;
-        totalDrag += Math.abs(dx);
-        velYaw = -dx * 0.002;
-        yaw += velYaw;
-        lastX = e.touches[0].clientX;
-    }
-    function onTouchEnd() { isDragging = false; }
     function onClick(e) {
-        if (totalDrag > 8) { e.preventDefault(); e.stopImmediatePropagation(); }
+        if (!suppressClick) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        suppressClick = false;
     }
     function onResize() {
         const W2 = container.clientWidth, H2 = container.clientHeight;
@@ -339,32 +336,28 @@ async function buildGallery3D(items, container) {
         renderer.setSize(W2, H2);
     }
 
-    renderer.domElement.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
+    renderer.domElement.addEventListener("pointerdown", onPointerDown);
+    renderer.domElement.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", finishPointer);
+    window.addEventListener("pointercancel", finishPointer);
     renderer.domElement.addEventListener("click", onClick, true);
     renderer.domElement.addEventListener("wheel", onWheel, { passive: false });
-    renderer.domElement.addEventListener("touchstart", onTouchStart, { passive: true });
-    renderer.domElement.addEventListener("touchmove", onTouchMove, { passive: true });
-    renderer.domElement.addEventListener("touchend", onTouchEnd);
     window.addEventListener("resize", onResize);
 
     _galCleanup = () => {
         cancelAnimationFrame(animId);
-        renderer.domElement.removeEventListener("mousedown", onMouseDown);
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener("mouseup", onMouseUp);
+        renderer.domElement.removeEventListener("pointerdown", onPointerDown);
+        renderer.domElement.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", finishPointer);
+        window.removeEventListener("pointercancel", finishPointer);
         renderer.domElement.removeEventListener("click", onClick, true);
         renderer.domElement.removeEventListener("wheel", onWheel);
-        renderer.domElement.removeEventListener("touchstart", onTouchStart);
-        renderer.domElement.removeEventListener("touchmove", onTouchMove);
-        renderer.domElement.removeEventListener("touchend", onTouchEnd);
         window.removeEventListener("resize", onResize);
     };
 }
 
 /* ============================================================
-   RENDER PROJECTS — 3D GALLERY
+   RENDER PROJECTS — EDITORIAL ARCHIVE GRID
 ============================================================ */
 export async function renderProjects(containerId, category = null) {
     const placeholder = document.getElementById(containerId);
@@ -380,11 +373,11 @@ export async function renderProjects(containerId, category = null) {
     _allCylItems = items;
 
     const container = document.createElement("div");
-    container.className = "cyl-container";
+    container.className = "archive-grid";
     _cylContainer = container;
 
     placeholder.replaceWith(container);
-    await buildGallery3D(items, container);
+    buildProjectGrid(items, container);
 }
 
 /* ============================================================
@@ -406,7 +399,7 @@ export function initFilterBar() {
                 || p.category === filter
             );
 
-            if (_cylContainer) buildGallery3D(visible, _cylContainer);
+            if (_cylContainer) buildProjectGrid(visible, _cylContainer);
         });
     });
 }
@@ -477,4 +470,83 @@ document.addEventListener("DOMContentLoaded", () => {
             el.style.transform = "translateY(0)";
         });
     }));
+
+    /* Hero archive lens — project imagery revealed through the name */
+    const titleWrap = document.getElementById("heroTitleWrap");
+    const lensTitle = document.getElementById("heroLensTitle");
+    if (titleWrap && lensTitle) {
+        const lensImages = projects
+            .filter(project => project.featured)
+            .map(projectThumbnail)
+            .filter(Boolean);
+        let lensIndex = 0;
+
+        const setLensImage = () => {
+            if (!lensImages.length) return;
+            lensTitle.style.setProperty("--lens-image", `url("${lensImages[lensIndex]}")`);
+            lensIndex = (lensIndex + 1) % lensImages.length;
+        };
+        setLensImage();
+
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            titleWrap.addEventListener("pointerenter", setLensImage);
+            titleWrap.addEventListener("pointermove", event => {
+                const rect = titleWrap.getBoundingClientRect();
+                titleWrap.style.setProperty("--lens-x", `${event.clientX - rect.left}px`);
+                titleWrap.style.setProperty("--lens-y", `${event.clientY - rect.top}px`);
+                titleWrap.classList.add("lens-active");
+            });
+            titleWrap.addEventListener("pointerleave", () => titleWrap.classList.remove("lens-active"));
+        }
+    }
+
+    /* Tactile typewriter — deliberate rhythm, pauses, and accessible fallback */
+    const typedText = document.getElementById("heroTypedText");
+    const typewriter = document.getElementById("heroTypewriter");
+    if (typedText && typewriter) {
+        const sentences = [
+            "Turning memory into interaction.",
+            "Building spaces that listen.",
+            "Making technology feel human.",
+            "Stories shaped in image, material, and code."
+        ];
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let paused = false;
+        typewriter.addEventListener("pointerenter", () => { paused = true; });
+        typewriter.addEventListener("pointerleave", () => { paused = false; });
+
+        const wait = ms => new Promise(resolve => window.setTimeout(resolve, ms));
+        const waitWhilePaused = async () => {
+            while (paused) await wait(100);
+        };
+
+        async function runTypewriter() {
+            if (reduced) return;
+            await wait(1450);
+            let sentenceIndex = 0;
+            while (document.body.contains(typedText)) {
+                const sentence = sentences[sentenceIndex];
+                typewriter.setAttribute("aria-label", sentence);
+                typedText.textContent = "";
+                for (const character of sentence) {
+                    await waitWhilePaused();
+                    const letter = document.createElement("span");
+                    letter.className = "typed-character";
+                    letter.textContent = character === " " ? "\u00a0" : character;
+                    typedText.appendChild(letter);
+                    await wait(character === "," ? 270 : character === " " ? 72 : 82 + Math.random() * 62);
+                }
+                await wait(2400);
+                await waitWhilePaused();
+                for (let i = sentence.length; i > 0; i -= 1) {
+                    await waitWhilePaused();
+                    typedText.lastElementChild?.remove();
+                    await wait(34);
+                }
+                await wait(620);
+                sentenceIndex = (sentenceIndex + 1) % sentences.length;
+            }
+        }
+        runTypewriter();
+    }
 });
