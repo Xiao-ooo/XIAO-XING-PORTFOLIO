@@ -12,75 +12,47 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-  <script>if (localStorage.getItem("theme") === "light") { document.body.classList.add("light"); }</script>
+<body class="home-page">
+  <script src="theme.js"></script>
 
-  <nav id="mainNav">
+  <nav id="mainNav" aria-label="Primary navigation">
     <div class="nav-inner">
       <div class="nav-left">
         <a class="logo" href="index.html">XIAO XING</a>
-        <div class="theme-toggle">
-          <span class="theme-toggle-label" id="themeLabel">Dark</span>
-          <label class="theme-switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="theme-slider"></span>
-          </label>
-        </div>
+        <div class="theme-toggle"><button class="theme-button" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button></div>
       </div>
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="creative-technology.html">Creative Technology</a></li>
-        <li><a href="visual-illustrations.html">Visual Illustrations</a></li>
-        <li><a href="photography-films.html">Photography &amp; Films</a></li>
+        <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="projects.html">Projects</a></li>
       </ul>
     </div>
   </nav>
 
   <section id="intro">
     <div class="intro-bg"></div>
+    <div class="hero-context"><span>Creative technologist &amp; visual artist</span><span>Based in New York</span></div>
     <div class="intro-inner">
       <div class="hero-title-wrap" id="heroTitleWrap">
         <h1>XIAO XING</h1>
         <h1 class="hero-lens-title" id="heroLensTitle" aria-hidden="true">XIAO XING</h1>
       </div>
       <p class="intro-sub hero-typewriter" id="heroTypewriter"
-        aria-label="Turning memory into interaction.">
-        <span id="heroTypedText">Turning memory into interaction.</span><i aria-hidden="true"></i>
+        aria-label="Creative technology &amp; digital design.">
+        <span id="heroTypedText">Creative technology &amp; digital design.</span><i aria-hidden="true"></i>
       </p>
-      <span class="intro-scroll-hint">scroll</span>
+      <p class="hero-hover-note">Move across the name to preview projects</p>
     </div>
+    <a class="home-next" href="#featured-project">View featured project <span aria-hidden="true">↓</span></a>
   </section>
 
-  <section id="about-split">
-    <div class="about-sticky-left">
-      <span class="about-eyebrow">About</span>
-      <h2 class="about-sticky-title">Creative<br><em>Technologist</em><br>&amp; Visual<br><em>Artist</em></h2>
-      <a href="creative-technology.html" class="about-sticky-cue">
-        <span class="scroll-line"></span>
-        <span class="scroll-label">explore work</span>
-      </a>
-    </div>
-    <div class="about-scroll-right">
-      <div class="about-panel about-panel--bio">
-        <p class="about-bio">
-          I'm Xiao Xing — a creative technologist and visual artist working across code, physical materials, and storytelling. My practice is rooted in deep, abstract thinking and the belief that a project should be felt before it is understood. I work in whatever form the idea demands — immersive installation, interactive web experience, sculpture, photography, film — and I find as much meaning in the process of making as in the finished work.
-        </p>
-        <p class="about-bio">
-         Collaboration is central to how I think. I'm drawn to projects that challenge assumptions, invite hands-on experimentation, and leave room for the unexpected. Whether I'm building with Arduino, writing in JavaScript, or layering plaster by hand, the question is always the same: can this carry genuine feeling? Visual storytelling is what drives everything — the conviction that a project, in any medium, can tell its story through atmosphere alone.
-        </p>
-      </div>
-      <div class="about-panel about-panel--tags">
-        <span class="about-practice-label">Areas of practice</span>
-        <div class="about-tags">
-          <span class="about-tag">Creative Technology</span>
-          <span class="about-tag">Interactive Design</span>
-          <span class="about-tag">Visual Illustration</span>
-          <span class="about-tag">Immersive Experience</span>
-        </div>
-      </div>
-    </div>
+  <section id="featured-project" class="latest-work" aria-labelledby="latest-title">
+    <div class="latest-caption"><span class="section-label">Featured project / 2026</span></div>
+    <a class="kocep-feature" href="project.html?id=kocep">
+      <div class="kocep-art"><img src="assets/kocep-homepage.png" alt="KoCep homepage — Quality Networks Start From Here" width="2994" height="1548" loading="lazy"></div>
+      <div class="kocep-feature-copy"><span class="section-label">Web platform</span><h2 id="latest-title">KoCep</h2><p>A platform for finding collaborators and sharing projects. My role covers technical development, UI/UX, and marketing.</p></div>
+    </a>
   </section>
-
   <section id="creative-tech-feature">
     <div class="ct-header reveal">
       <div class="ct-header-left">
@@ -88,9 +60,8 @@
         <h2>Creative<br><em>Technology</em></h2>
       </div>
       <div class="ct-header-right">
-        <p class="ct-desc">Exploring the intersection of code, interaction, and human experience — through immersive
-          installations, generative systems, and digital works that ask something of the viewer.</p>
-        <a href="creative-technology.html" class="ct-link">View all work <span class="link-line"></span></a>
+        <p class="ct-desc">Web applications, games, and installations built with JavaScript, Unity, and physical computing.</p>
+        <a href="projects.html" class="ct-link">All projects</a>
       </div>
     </div>
     <div class="ct-collage" id="ctCollage"></div>
@@ -98,13 +69,13 @@
 
   <section id="other-featured">
     <div class="hscroll-header reveal">
-      <span class="section-label">Across mediums</span>
-      <h2>Other <em>Highlights</em></h2>
+      <span class="section-label">Photography / Film / Visual art</span>
+      <h2>Selected work</h2>
     </div>
     <div class="loop-strip-outer">
       <div class="loop-fade-left"></div>
       <div class="loop-fade-right"></div>
-      <div class="loop-track-wrap">
+      <div class="loop-track-wrap" tabindex="0" role="region" aria-label="Selected work — scroll horizontally to browse">
         <div class="loop-track" id="loopTrack"></div>
       </div>
     </div>
@@ -114,28 +85,22 @@
     <div class="contact-grid">
       <div class="contact-left reveal">
         <span class="section-label">Contact</span>
-        <h2>Let's <em>create</em><br>together</h2>
+        <h2>Get in touch</h2>
         <a href="mailto:xiaoqingxing12@gmail.com" class="contact-email">xiaoqingxing12@gmail.com</a>
       </div>
       <div class="contact-right reveal">
         <span class="contact-bio-label">Open to collaboration</span>
         <p class="contact-bio">
-          Based in New York, currently studying Creative Technology.
+          Based in New York, studying Design &amp; Technology at Parsons.
           Available for collaborations across interactive installation,
           creative direction, immersive experience, and visual projects.
         </p>
-        <p class="contact-collab">"If it doesn't ask something of the viewer, it isn't finished."</p>
+
       </div>
     </div>
   </section>
 
   <script type="module" src="script.js"></script>
-  <script>
-    const nav = document.getElementById("mainNav");
-    window.addEventListener("scroll", () => {
-      nav.classList.toggle("scrolled", window.scrollY > 80);
-    }, { passive: true });
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="cursor.js"></script>
 </body>

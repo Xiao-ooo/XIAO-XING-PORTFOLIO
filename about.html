@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me — XIAO XING</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <script src="theme.js"></script>
+
+  <nav id="mainNav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a class="logo" href="index.html">XIAO XING</a>
+        <div class="theme-toggle"><button class="theme-button" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button></div>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active" aria-current="page">About Me</a></li>
+        <li><a href="projects.html">Projects</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<main class="about-page">
+  <section id="about-split">
+    <div class="about-sticky-left">
+      <span class="about-eyebrow">About</span>
+      <h2 class="about-sticky-title">Creative<br><em>Technologist</em><br>&amp; Visual<br><em>Artist</em></h2>
+      <div class="resume-actions"><a href="assets/xiao-xing-resume.pdf" target="_blank" rel="noopener">View résumé</a><a href="assets/xiao-xing-resume.pdf" download="Xiao-Qing-Xing-Resume.pdf">Download PDF</a></div>
+      <a href="projects.html" class="about-sticky-cue">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">explore work</span>
+      </a>
+    </div>
+    <div class="about-scroll-right">
+      <div class="about-panel about-panel--bio">
+        <p class="about-bio">I'm Xiao Qing Xing, a creative technologist and visual artist based in New York. I'm studying Design &amp; Technology at Parsons School of Design, with a focus on digital development, UI/UX, and content production.</p>
+        <p class="about-bio">I develop web interfaces, games, and interactive installations using JavaScript, Unity, and Arduino. My visual practice includes photography, film, illustration, and sculpture. At KoCep, I contribute to technical development, interface design, and marketing content.</p>
+      </div>
+      <div class="about-panel about-panel--tags">
+        <span class="about-practice-label">Areas of practice</span>
+        <div class="about-tags">
+          <span class="about-tag">Creative Technology</span>
+          <span class="about-tag">Interactive Design</span>
+          <span class="about-tag">Visual Illustration</span>
+          <span class="about-tag">Immersive Experience</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section" aria-labelledby="background-title">
+    <div class="resume-heading"><span class="section-label">Background</span><h2 id="background-title">Education &amp;<br>experience</h2></div>
+    <div class="resume-content">
+      <h3>Education</h3>
+      <article class="resume-entry"><span class="resume-date">2023 — Expected May 2027</span><h4>Parsons School of Design, The New School</h4><p>B.F.A. Design &amp; Technology · GPA 3.96 / 4.00</p></article>
+      <h3>Selected project</h3>
+      <article class="resume-entry"><span class="resume-date">2026 — Present</span><h4><a href="project.html?id=kocep">KoCep</a></h4><p>Technical development, UI/UX &amp; marketing. Contributing to the web platform, designing user flows and interfaces, and planning and producing social content and short-form videos.</p></article>
+      <h3>Experience</h3>
+      <article class="resume-entry"><span class="resume-date">January — May 2026</span><h4>Promo Team Member · Parsons Thesis Planning</h4><p>Exhibition outreach, social media promotion, RSVP tracking, and production of graphics, photography, and video.</p></article>
+      <article class="resume-entry"><span class="resume-date">2024 — Present</span><h4>Manager · Pho Ga Vang, New York</h4><p>Staff scheduling, daily operations, customer service, inventory, and sales reconciliation.</p></article>
+      <article class="resume-entry"><span class="resume-date">2023 — Present</span><h4>Library Assistant · List Center Library, Parsons</h4><p>Front-desk circulation, patron support, research inquiries, and collection organization.</p></article>
+      <h3>Tools &amp; skills</h3>
+      <p class="resume-skills">JavaScript, WebSocket, UI implementation · Photoshop, Illustrator, Premiere Pro, Canva, Figma (basic) · Photography, video editing, social media content · Operations and team coordination</p>
+      <p class="resume-skills">English &amp; Mandarin Chinese — native</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <span class="section-label">Contact</span>
+        <h2>Get in touch</h2>
+        <a href="mailto:xiaoqingxing12@gmail.com" class="contact-email">xiaoqingxing12@gmail.com</a>
+      </div>
+      <div class="contact-right reveal">
+        <span class="contact-bio-label">Open to collaboration</span>
+        <p class="contact-bio">
+          Based in New York, studying Design &amp; Technology at Parsons.
+          Available for collaborations across interactive installation,
+          creative direction, immersive experience, and visual projects.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+  <script type="module" src="script.js"></script>
+  <script src="cursor.js"></script>
+</body>
+</html>

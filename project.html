@@ -13,25 +13,18 @@
 </head>
 
 <body class="project-detail-page">
-  <script>if (localStorage.getItem("theme") === "light") { document.body.classList.add("light"); }</script>
+  <script src="theme.js"></script>
 
-  <nav id="mainNav">
+  <nav id="mainNav" aria-label="Primary navigation">
     <div class="nav-inner">
       <div class="nav-left">
         <a class="logo" href="index.html">XIAO XING</a>
-        <div class="theme-toggle">
-          <span class="theme-toggle-label" id="themeLabel">Dark</span>
-          <label class="theme-switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="theme-slider"></span>
-          </label>
-        </div>
+        <div class="theme-toggle"><button class="theme-button" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button></div>
       </div>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="creative-technology.html">Creative Technology</a></li>
-        <li><a href="visual-illustrations.html">Visual Illustrations</a></li>
-        <li><a href="photography-films.html">Photography &amp; Films</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="projects.html" class="active" aria-current="page">Projects</a></li>
       </ul>
     </div>
   </nav>
@@ -39,7 +32,7 @@
   <main class="detail-main">
 
     <div class="detail-header reveal">
-      <a href="javascript:history.back()" class="back-link">Back</a>
+      <a href="projects.html" class="back-link">Back</a>
       <span class="detail-breadcrumb" id="breadcrumb"></span>
     </div>
 
@@ -64,33 +57,13 @@
     </div>
 
     <div class="detail-related reveal">
-      <h4 class="related-heading">More from this series</h4>
+      <h4 class="related-heading">Related projects</h4>
       <div class="related-grid" id="relatedProjects"></div>
     </div>
 
   </main>
 
   <script type="module" src="project.js"></script>
-  <script>
-    const nav = document.getElementById("mainNav");
-    window.addEventListener("scroll", () => {
-      nav.classList.toggle("scrolled", window.scrollY > 40);
-    }, { passive: true });
-  </script>
-  <script>
-    (function () {
-      var tt = document.getElementById("themeToggle"), tl = document.getElementById("themeLabel");
-      if (tt) {
-        tt.checked = localStorage.getItem("theme") === "light";
-        if (tl) tl.textContent = tt.checked ? "Light" : "Dark";
-        tt.addEventListener("change", function () {
-          document.body.classList.toggle("light", tt.checked);
-          if (tl) tl.textContent = tt.checked ? "Light" : "Dark";
-          localStorage.setItem("theme", tt.checked ? "light" : "dark");
-        });
-      }
-    })();
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="cursor.js"></script>
 </body>

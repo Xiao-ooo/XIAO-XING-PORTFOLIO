@@ -1,21 +1,6 @@
 import { projects } from './projects.js';
 
 /* ============================================================
-   INTRO TEXT PARALLAX
-============================================================ */
-const introInner = document.querySelector(".intro-inner");
-const introBg = document.querySelector(".intro-bg");
-if (introInner) {
-    window.addEventListener("scroll", () => {
-        const y = window.scrollY;
-        const ease = 1 - Math.pow(1 - Math.min(y / 600, 1), 3);
-        introInner.style.opacity = 1 - ease * 1.25;
-        introInner.style.transform = `translateY(${y * 0.18}px) scale(${1 - ease * 0.04})`;
-        if (introBg) introBg.style.transform = `scale(${1 + ease * 0.12})`;
-    }, { passive: true });
-}
-
-/* ============================================================
    REVEAL ON SCROLL
 ============================================================ */
 const revealObs = new IntersectionObserver(entries => {
@@ -389,39 +374,19 @@ export function initFilterBar() {
 
     btns.forEach(btn => {
         btn.addEventListener("click", () => {
-            btns.forEach(b => b.classList.remove("active"));
+            btns.forEach(b => { b.classList.remove("active"); b.setAttribute("aria-pressed", "false"); });
             btn.classList.add("active");
+            btn.setAttribute("aria-pressed", "true");
 
             const filter = btn.dataset.filter;
             const visible = _allCylItems.filter(p =>
                 filter === "all"
                 || String(p.year) === filter
-                || p.category === filter
+                || filter.split(",").includes(p.category)
             );
 
             if (_cylContainer) buildProjectGrid(visible, _cylContainer);
         });
-    });
-}
-
-/* ============================================================
-   THEME TOGGLE
-============================================================ */
-const themeToggle = document.getElementById("themeToggle");
-const themeLabel = document.getElementById("themeLabel");
-
-if (localStorage.getItem("theme") === "light") {
-    document.body.classList.add("light");
-    if (themeToggle) themeToggle.checked = true;
-    if (themeLabel) themeLabel.textContent = "Light";
-}
-
-if (themeToggle) {
-    themeToggle.addEventListener("change", () => {
-        const isLight = themeToggle.checked;
-        document.body.classList.toggle("light", isLight);
-        themeLabel.textContent = isLight ? "Light" : "Dark";
-        localStorage.setItem("theme", isLight ? "light" : "dark");
     });
 }
 
@@ -475,6 +440,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const titleWrap = document.getElementById("heroTitleWrap");
     const lensTitle = document.getElementById("heroLensTitle");
     if (titleWrap && lensTitle) {
+        // Match character spacing so the image layer stays aligned with the name.
+        lensTitle.innerHTML = heroTitle.innerHTML;
+        lensTitle.querySelectorAll(".char").forEach(char => char.classList.add("in"));
         const lensImages = projects
             .filter(project => project.featured)
             .map(projectThumbnail)
@@ -505,10 +473,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const typewriter = document.getElementById("heroTypewriter");
     if (typedText && typewriter) {
         const sentences = [
-            "Turning memory into interaction.",
-            "Building spaces that listen.",
-            "Making technology feel human.",
-            "Stories shaped in image, material, and code."
+            "Creative technology & digital design.",
+            "Interactive installations & web development.",
+            "Photography, film & visual art."
         ];
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         let paused = false;

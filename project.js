@@ -2,14 +2,6 @@ import { projects } from './projects.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ---- NAV ---- */
-    const nav = document.getElementById("mainNav");
-    if (nav) {
-        window.addEventListener("scroll", () => {
-            nav.classList.toggle("scrolled", window.scrollY > 40);
-        }, { passive: true });
-    }
-
     /* ---- FIND PROJECT ---- */
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
@@ -104,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mediaContainer.innerHTML = `
             <div class="gallery-viewer">
                 <div class="gallery-main" id="galleryMain">
-                    <img src="${proj.images[0]}" alt="${proj.title}" id="mainImage">
+                    <img src="${proj.images[0]}" alt="${proj.imageAlts?.[0] || proj.title}" id="mainImage">
                     <button class="gal-nav gal-prev" id="galPrev">&#8592;</button>
                     <button class="gal-nav gal-next" id="galNext">&#8594;</button>
                     <span class="gal-counter" id="galCounter">1 / ${proj.images.length}</span>
@@ -112,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="gallery-thumbs" id="galleryThumbs">
                     ${proj.images.map((img, i) => `
                         <img src="${img}"
-                             alt="slide ${i + 1}"
+                             alt="${proj.imageAlts?.[i] || `slide ${i + 1}`}"
                              class="thumb ${i === 0 ? "active" : ""}"
                              data-index="${i}">
                     `).join("")}
@@ -130,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
             mainImg.style.opacity = "0";
             setTimeout(() => {
                 mainImg.src = proj.images[current];
+                mainImg.alt = proj.imageAlts?.[current] || proj.title;
                 mainImg.style.opacity = "1";
             }, 220);
             counter.textContent = `${current + 1} / ${proj.images.length}`;

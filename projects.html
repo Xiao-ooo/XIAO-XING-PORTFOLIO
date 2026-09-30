@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — XIAO XING</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <script src="theme.js"></script>
+
+  <nav id="mainNav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a class="logo" href="index.html">XIAO XING</a>
+        <div class="theme-toggle"><button class="theme-button" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button></div>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="projects.html" class="active" aria-current="page">Projects</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<main>
+  <header class="page-hero archive-heading reveal">
+    <span class="section-label">Project index / 2023–2026</span>
+    <h1>Projects</h1>
+    <p class="archive-intro">Digital products, interactive installations, photography, and visual art. Browse by discipline.</p>
+  </header>
+  <div class="gallery-nav category-nav" aria-label="Project categories">
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="all" aria-pressed="true">All work</button>
+      <button class="filter-btn" data-filter="creative-tech" aria-pressed="false">Creative Technology</button>
+      <button class="filter-btn" data-filter="visual" aria-pressed="false">Visual Art &amp; Installations</button>
+      <button class="filter-btn" data-filter="photography,films" aria-pressed="false">Photography &amp; Films</button>
+    </div>
+    <span class="gallery-count-label" role="status" aria-live="polite"></span>
+  </div>
+  <section id="projects" aria-label="Project archive"><div id="projectsContainer"></div></section>
+</main>
+<script type="module">
+  import { renderProjects, initFilterBar } from './script.js';
+  await renderProjects('projectsContainer');
+  initFilterBar();
+</script>
+<script src="cursor.js"></script>
+</body></html>

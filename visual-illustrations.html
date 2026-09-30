@@ -13,24 +13,17 @@
 </head>
 
 <body>
-  <script>if (localStorage.getItem("theme") === "light") { document.body.classList.add("light"); }</script>
-  <nav id="mainNav">
+  <script src="theme.js"></script>
+  <nav id="mainNav" aria-label="Primary navigation">
     <div class="nav-inner">
       <div class="nav-left">
         <a class="logo" href="index.html">XIAO XING</a>
-        <div class="theme-toggle">
-          <span class="theme-toggle-label" id="themeLabel">Dark</span>
-          <label class="theme-switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="theme-slider"></span>
-          </label>
-        </div>
+        <div class="theme-toggle"><button class="theme-button" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button></div>
       </div>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="creative-technology.html">Creative Technology</a></li>
-        <li><a href="visual-illustrations.html" class="active">Visual Illustrations</a></li>
-        <li><a href="photography-films.html">Photography &amp; Films</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="projects.html" class="active" aria-current="page">Projects</a></li>
       </ul>
     </div>
   </nav>
@@ -61,12 +54,6 @@
     import { renderProjects, initFilterBar } from './script.js';
     renderProjects("projectsContainer", "visual");
     initFilterBar();
-  </script>
-  <script>
-    const nav = document.getElementById("mainNav");
-    window.addEventListener("scroll", () => {
-      nav.classList.toggle("scrolled", window.scrollY > 40);
-    }, { passive: true });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="cursor.js"></script>

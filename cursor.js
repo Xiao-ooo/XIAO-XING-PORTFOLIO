@@ -15,6 +15,23 @@
        RESPONSIVE NAVIGATION
     ============================================================ */
     var nav = document.getElementById('mainNav');
+    // Progressively compact the header over the first 220px of scrolling.
+    // One shared handler keeps every page and restored scroll position consistent.
+    if (nav) {
+        var navFrame = 0;
+        function updateNav() {
+            var progress = reduceMotion ? 0 : Math.min(Math.max(window.scrollY, 0) / 220, 1);
+            nav.style.setProperty('--nav-progress', progress.toFixed(4));
+            navFrame = 0;
+        }
+        function queueNavUpdate() {
+            if (!navFrame) navFrame = requestAnimationFrame(updateNav);
+        }
+        updateNav();
+        window.addEventListener('scroll', queueNavUpdate, { passive: true });
+        window.addEventListener('pageshow', queueNavUpdate);
+    }
+
     var navList = nav && nav.querySelector('ul');
     var navInner = nav && nav.querySelector('.nav-inner');
 

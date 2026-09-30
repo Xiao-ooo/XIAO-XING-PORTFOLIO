@@ -1,4 +1,18 @@
 export const projects = [
+    {
+        id: "kocep",
+        title: "KoCep",
+        year: 2026,
+        category: "creative-tech",
+        type: "gallery",
+        images: ["assets/kocep-homepage.png", "assets/kocep-prelaunch.png"],
+        imageAlts: ["KoCep homepage — Quality Networks Start From Here", "KoCep pre-launch event poster — September 11, 2026, The New School"],
+        link: "https://kocep.co",
+        linkLabel: "Visit KoCep",
+        medium: "Web platform — technical development, UI/UX & marketing",
+        description: "KoCep is a web platform for finding collaborators and sharing projects. I contribute to technical development, UI implementation, user flows, and interface design. My work also includes social media content and short-form video production.",
+        featured: true
+    },
 
     // ── 2023 ──────────────────────────────────────────────
     {
@@ -9,7 +23,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/TheMoss.jpg",
         medium: "Acrylic on canvas — 8.5 × 11 in",
-        description: "A discovery in a forgotten corner — green mold found on a wooden table becomes the starting point for imagination. What is overlooked becomes vivid; what decays becomes luminous.",
+        description: "An acrylic painting based on mold observed on a wooden table. The work develops its organic shapes and green tones into an imagined landscape.",
         featured: true
     },
     {
@@ -20,7 +34,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/Vase.jpeg",
         medium: "Graphite on bristol, 8.5 × 11 in — digital collage in Photoshop",
-        description: "A hand-drawn still life observed from life, then pulled into the digital — pencil becomes pixel, the vase recontextualized through layered collage. A study in the space between the analog and the made.",
+        description: "A graphite still life drawn from observation and developed into a digital collage in Photoshop.",
         featured: true
     },
     {
@@ -31,7 +45,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/Wilderness.jpeg",
         medium: "Plaster gauze, vaseline, feathers, chain — sculptural mask",
-        description: "A mask built by hand — plaster gauze strips dipped in water, layered and released with vaseline. Adorned with feathers and wrapped in chain, it sits between the natural and the bound. Wild in form, restrained by design.",
+        description: "A sculptural mask made from plaster gauze, feathers, and chain. The contrast between organic materials and metal restraint informs its shape and surface.",
         featured: true
     },
     {
@@ -47,7 +61,7 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/Va!Poster.jpeg"
         ],
         medium: "Sculptural installation with spiked chair — set of 3 room-sized poster designs",
-        description: "An installation confronting the violence of reproductive control. A spiked birth chair — abstract, hostile, impossible to approach — makes danger physical. Paired with three room-sized posters, the work refuses to let the viewer stay comfortable. You feel it before you understand it.",
+        description: "An installation addressing reproductive control through a spiked birth chair and three room-sized posters. The chair uses physical obstruction to convey danger and restricted access.",
         featured: false
     },
 
@@ -68,7 +82,7 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/EscapeGirl.jpeg"
         ],
         medium: "p5.js, JavaScript — browser-based interactive game",
-        description: "A browser-based escape game built in p5.js, drawn from personal memory. Growing up, the living room was a space of dread — two huge windows facing inward, darkness, the feeling of being watched. The player must cross it to reach the bathroom. Avoid the eyes. Reach safety. A childhood fear made into a mechanic.",
+        description: "A browser-based escape game built in p5.js, based on a childhood memory of crossing a dark living room. Players avoid watching eyes while navigating toward the bathroom.",
         featured: true
     },
 
@@ -87,7 +101,7 @@ export const projects = [
         link: "https://xiao-ooo.github.io/Core-Lab-System-Projects/index.html",
         linkLabel: "Experience the Work",
         medium: "Vanilla JavaScript, HTML/CSS — interactive web experience",
-        description: "An interactive mood board built in vanilla JavaScript — a personal emotional breakdown made navigable. Each scene represents a distinct state: calm, stressed, hype. A single clickable word at the edge of the frame carries you forward. The work maps the interior as interface.",
+        description: "An interactive web collage organized around three emotional states: calm, stressed, and hype. Each scene uses images and a clickable word to move the viewer into the next state.",
         featured: true
     },
     {
@@ -105,7 +119,7 @@ export const projects = [
         link: "https://play.unity.com/en/games/ded174d1-2bd3-4bfa-b464-b031f5a4b692/webgl-builds",
         linkLabel: "View Unity here",
         medium: "Unity — interactive physics simulation",
-        description: "A Rube Goldberg machine built in Unity — a chain of causes set into motion by gravity and mass. Each trigger leads to the next with no shortcut, no skip. An experiment in consequence, physics, and the satisfaction of watching something unnecessarily complex work exactly as intended.",
+        description: "A Rube Goldberg machine built in Unity. The simulation uses gravity, collisions, and connected mechanisms to produce a sequence of physical events.",
         featured: true
     },
     {
@@ -121,7 +135,7 @@ export const projects = [
         link: "https://xiao-ooo.github.io//CC-Lab-Portfolio/Digital%20Divination/Zodiac.html",
         linkLabel: "Reveal your horoscope here",
         medium: "Vanilla JavaScript — interactive web experience",
-        description: "Enter your birthday and the work responds — pulling your zodiac sign and a real fact of the day, different every time you visit. A small ritual of self-recognition built in code. Part horoscope, part daily curiosity.",
+        description: "An interactive web project that responds to a birth date with a zodiac sign and a fact of the day.",
         featured: true
     },
         {
@@ -139,7 +153,7 @@ export const projects = [
         link: "https://xiao-ooo.github.io//CC-Lab-Portfolio/Chinese%20Quiz/home.html",
         linkLabel: "Try out the Mandarin Crash Course here",
         medium: "Vanilla JavaScript — interactive web experience",
-        description: "A mandarin crash course built as a card-based learning game — fast, direct, no filler. Two levels of difficulty, always reviewable. Somewhere between flashcard and arcade, it treats language learning as something that should feel urgent and light at the same time.",
+        description: "A card-based Mandarin learning game with two difficulty levels and a review function. The interface combines short lessons with repeated practice.",
         featured: true
     }, 
     
@@ -156,7 +170,7 @@ export const projects = [
         link: "https://collaborative-1-rclj.onrender.com/",
         linkLabel: "Click to create your pizza",
         medium: "Vanilla JavaScript, Node.js, real-time server (Render) — Photoshop-designed assets",
-        description: "A real-time collaborative pizza builder — two people, one canvas, making something together without being in the same room. Every ingredient selection designed in Photoshop, every interaction shared instantly over a live server. A small experiment in shared authorship and the chaos of giving someone else the toppings.",
+        description: "A collaborative pizza-building application in which two participants share a canvas in real time. Ingredient graphics were created in Photoshop, with selections synchronized through a live server.",
         featured: false,
        
     },
@@ -175,7 +189,7 @@ export const projects = [
         link: "https://emergingfuture-3.onrender.com/index.html",
         linkLabel: "Experience the Work",
         medium: "Vanilla JavaScript, Node.js, real-time server — interactive web experience",
-        description: "A speculative dark net system designed for an imagined future. Citizens are evaluated through a form that tests obedience — the answers already scored, the outcome already decided and you are always under serveilance. The more compliant you are, the better zone you're assigned to live in. But the hierarchy never ends. There is always someone above. A critique of systems that disguise control as merit, and punish free thought as a safety risk.",
+        description: "A speculative interface that assigns citizens to residential zones according to their responses to an obedience assessment. The project examines surveillance, social hierarchy, and the use of evaluation systems to enforce compliance.",
         featured: true
     },
     {
@@ -192,7 +206,7 @@ export const projects = [
         video: "https://res.cloudinary.com/dilcfjytt/video/upload/UntitledPlaytest.mp4",
         thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/Untitled3.jpeg",
         medium: "Arduino, ultrasonic distance sensor, 2 × 35kg servo motors — physical installation",
-        description: "A continuation of Va!Va!Va!Va! — this installation brings the violence into physical space. Two servo motors controlled by an Arduino distance sensor respond to the viewer's presence: the closer you move, the more the spikes rise, turning toward you, restricting your approach. The work doesn't ask to be understood. It asks to be felt. A body in space, suddenly unwelcome.",
+        description: "An interactive installation extending Va!Va!Va!Va!. An Arduino distance sensor controls two servo motors: as a viewer approaches, spikes rise and turn toward them, restricting access to the sculpture.",
         featured: true
     },
     {
@@ -203,7 +217,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/CentralParkMother.jpeg",
         medium: "Portrait Photography",
-        description: "A directed portrait series of my mother in Central Park — our first time there together. Ours was never the kind of closeness that included parks or stillness. I asked her to pose, and in doing so discovered a side of her I hadn't seen before. Unhurried, soft, willing. This series holds that shift.",
+        description: "A directed portrait series of my mother during our first visit to Central Park together. Asking her to pose created an opportunity to observe her outside the routines of home and work.",
         featured: false
     },
     {
@@ -214,7 +228,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/NatureCollection.jpeg",
         medium: "Nature Photography Series",
-        description: "Different flowers, plants, and trees — each photographed separately, each growing stubbornly on its own terms. Together they form a study in color, texture, and the quiet persistence of living things. Beauty found in what most people walk past.",
+        description: "A photographic study of flowers, plants, and trees, focusing on differences in color, texture, and growth.",
         featured: true
     },
     {
@@ -226,7 +240,7 @@ export const projects = [
         youtube: "BLda6tp7GNg",
         thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/Illusional.jpeg",
         medium: "Video, Adobe Premiere Pro — sound design, visual effects",
-        description: "A video work composed entirely through editing — transitions, distortions, and sound layered until each cut becomes its own moment. Images bleed into one another from unexpected angles, perspectives shifting mid-motion. The result is abstract but balanced, disorienting but deliberate.",
+        description: "An experimental video constructed through editing, layered sound, transitions, and distortion. Changes in perspective and pacing organize the sequence.",
         featured: true
     },
 
@@ -245,7 +259,7 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/Sonic4.jpg"
         ],
         medium: "Web Audio API, Three.js, JavaScript — collaborative real-time web experience. Collaborated technical development with Jiaming Wang, Longren Yan & Isabel Zlatev (documentation)",
-        description: "A collaborative browser-based audiovisual instrument — press a key, hear a sound, watch the world react. Built with the Web Audio API and Three.js, Sonic Continuum synthesizes music and 3D visuals in real time. Multiple people can connect from different devices and play together, each taking a different role — instrument, mixer, effects, or drum pads. A shared space where sound becomes image and playing becomes performance.",
+        description: "A collaborative audiovisual instrument built with the Web Audio API and Three.js. Participants connect from separate devices to control instruments, mixing, effects, and drum pads, generating sound and 3D visuals in real time. My contributions included MIDI playback, Socket.IO remote control, and instanced rendering.",
         featured: true
     },
     {
@@ -261,7 +275,7 @@ export const projects = [
 
         ],
         medium: "Unity, Arduino — motion sensor controller, joystick, custom wand hardware",
-        description: "A Unity game controlled by a custom Arduino wand. A high school girl, shaped by a difficult home — a mother with narcissistic personality disorder — slips into an illusional world during class. She fights monsters that embody her inner fears, wielding a magic wand whose pressure builds with every shake of the physical controller. When she finally wakes, the wand in her hand is a knife. The game sits at the edge of play and psychological reality, using physical interaction to make the dissociation felt.",
+        description: "A Unity game controlled by a custom Arduino wand. The story follows a high school student who retreats into an imagined world while coping with a difficult home life. Shaking the physical controller builds the wand's power as the player confronts monsters based on the character's fears.",
         featured: true
     },
     {
@@ -278,7 +292,7 @@ export const projects = [
         video: "https://res.cloudinary.com/dilcfjytt/video/upload/HackathonPigeonVideo.mp4",
         thumbnail: "https://res.cloudinary.com/dilcfjytt/image/upload/HackathonPigeon3.jpeg",
         medium: "Unity, Arduino — hand-sewn plush controller with pressure sensor and tilt sensor. Created with Crystal (hardware & Arduino), Fany (project management & asset design), Uki (scene development), Marinel (logistics)",
-        description: "Built in 48 hours at the 2026 Playful NYC Hackathon at Parsons School of Design. A pigeon game controlled by a hand-sewn plush pigeon controller — squeeze it to poop-attack obstacles, shake it to boost speed. The game follows a pigeon's night life through New York City, reclaiming the streets from a bird's-eye perspective. Hardware, software, and absurdity in equal measure. UNITY Game is still in PROGRESS.... COMING SOON....",
+        description: "A game prototype developed in 48 hours at the 2026 Playful NYC Hackathon at Parsons. A hand-sewn plush pigeon acts as the controller: squeezing triggers an attack and shaking increases speed. The Unity game follows a pigeon through New York at night. Development is ongoing.",
         featured: true
     },
     {
@@ -289,7 +303,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/14st.jpeg",
         medium: "Canon EOS R6 Mark II — Cityscape Photography",
-        description: "Shot on a Canon EOS R6 Mark II, following the light down 14th Street until it landed on a church. The architecture holds the sun differently — the atmosphere shifts, and for a moment the street becomes something quieter than itself. A study in light, structure, and accidental discovery.",
+        description: "A photograph of a church on 14th Street, taken with a Canon EOS R6 Mark II. The composition studies sunlight across the building and surrounding street.",
         featured: true
     },
     {
@@ -300,7 +314,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/Winter.jpeg",
         medium: "Canon EOS R6 Mark II — 5 AVE",
-        description: "Shot on a Canon EOS R6 Mark II during winter — a chance turn, and there he was with his two dogs. The cold light gives everything a cinematic quality, like a still from a film nobody made. The warmth between a person and their dogs survives any weather.",
+        description: "A winter street portrait of a person with two dogs, photographed with a Canon EOS R6 Mark II.",
         featured: true
     },
     {
@@ -311,7 +325,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/NYCGarbage.jpeg",
         medium: "Canon EOS R6 Mark II — Sustainability Project Photography",
-        description: "Shot on a Canon EOS R6 Mark II — light folding across garbage bags on a New York curb. An exploration of sustainability and what the city discards. The subject is mundane; the light refuses to treat it that way.",
+        description: "A photograph of garbage bags on a New York curb, taken with a Canon EOS R6 Mark II. The image focuses on light, surface, and the materials discarded in the city.",
         featured: true
     },
     {
@@ -333,7 +347,7 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/Knowledge10.jpeg"
         ],
         medium: "Canon EOS R6 Mark II — 10 Still Life Light Series",
-        description: "A ten-part still life series photographed on a Canon EOS R6 Mark II — books arranged by collection and category, each lit to ask the same question differently: how does light invite you in? An exploration of knowledge as atmosphere, and the quiet welcome of a well-lit page.",
+        description: "A ten-part still life series of books arranged by collection and category. Photographed with a Canon EOS R6 Mark II, the series studies the effect of lighting on familiar objects.",
         featured: true
     },
     {
@@ -347,7 +361,7 @@ export const projects = [
             "https://res.cloudinary.com/dilcfjytt/image/upload/LoveLivesinTheHand2.jpeg"
         ],
         medium: "Canon EOS R6 Mark II — Nanlite portable lighting — supermarket & home",
-        description: "A series of close photographs following my mother through the spaces she inhabits — the supermarket aisles on Saturday mornings, the kitchen, the bedroom floor she mops at 10PM. The title 爱在手中 [Aì Zài Shǒu Zhōng] — Love Lives in the Hands — emerged from watching her through a lens: she never sits still, she never stops working, and for a long time I couldn't understand if that was love or if she just wasn't hearing me. Under the lens I finally could see it. She loved me louder than my words. A portrait series about the language a mother speaks when words aren't enough, and the slow work of learning to listen.",
+        description: "A photographic series following my mother through everyday tasks at the supermarket and at home. Close observations of her hands and routines examine how care is expressed through domestic work. The title, 爱在手中, translates as Love Lives in the Hands.",
         featured: true
     },
     {
@@ -358,7 +372,7 @@ export const projects = [
         type: "image",
         src: "https://res.cloudinary.com/dilcfjytt/image/upload/MirageBoss.jpg",
         medium: "Procreate — digital illustration, character design",
-        description: "A digitally hand-drawn boss character designed in Procreate for #90006206 — the final confrontation. Mirage is the NPD mother made monstrous, the source of everything the protagonist has been fighting toward. Designed to feel simultaneously familiar and terrifying, the way an NPD parent can be.",
+        description: "A boss character drawn in Procreate for the Unity game 90006202#. Mirage represents the protagonist's mother in the game's imagined world, combining recognizable features with monstrous forms.",
         featured: true
     }
 
