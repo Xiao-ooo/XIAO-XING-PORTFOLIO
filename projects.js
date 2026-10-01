@@ -5,7 +5,7 @@ export const projects = [
         year: 2026,
         category: "creative-tech",
         type: "gallery",
-        images: ["assets/kocep-homepage.png", "assets/kocep-prelaunch.png"],
+        images: ["https://res.cloudinary.com/dilcfjytt/image/upload/v1790817089/Kocep.png", "https://res.cloudinary.com/dilcfjytt/image/upload/v1790817089/KoCep_PreLaunch_Poster.png"],
         imageAlts: ["KoCep homepage — Quality Networks Start From Here", "KoCep pre-launch event poster — September 11, 2026, The New School"],
         link: "https://kocep.co",
         linkLabel: "Visit KoCep",
