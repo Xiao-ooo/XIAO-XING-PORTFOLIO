@@ -16,6 +16,51 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    /* Keep the project index within reach while viewing a work. */
+    const categoryButtons = document.querySelectorAll("[data-work-category]");
+    const workList = document.getElementById("work-list");
+    const browserPanel = document.getElementById("work-browser-panel");
+    const browserSummary = browserPanel.querySelector("summary");
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && browserPanel.open) {
+            browserPanel.open = false;
+            browserSummary.focus();
+        }
+    });
+    document.addEventListener("click", event => {
+        if (browserPanel.open && !browserPanel.contains(event.target)) browserPanel.open = false;
+    });
+    let selectedCategory = ["photography", "films"].includes(proj.category)
+        ? "photography,films" : proj.category;
+
+    function renderWorkList() {
+        const category = selectedCategory;
+        categoryButtons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.workCategory === category)));
+        const items = projects.filter(p => category === "all" || category.split(",").includes(p.category))
+            .sort((a, b) => b.year - a.year);
+        workList.replaceChildren();
+        for (const project of items) {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = `project.html?id=${encodeURIComponent(project.id)}`;
+            const title = document.createElement("span");
+            title.textContent = project.title;
+            const year = document.createElement("small");
+            year.textContent = project.year;
+            link.append(title, year);
+            if (project.id === proj.id) link.setAttribute("aria-current", "page");
+            item.append(link);
+            workList.append(item);
+        }
+        document.getElementById("work-count").textContent = `${items.length} ${items.length === 1 ? "work" : "works"}`;
+    }
+    categoryButtons.forEach(button => button.addEventListener("click", () => {
+        selectedCategory = button.dataset.workCategory;
+        renderWorkList();
+        workList.scrollTop = 0;
+    }));
+    renderWorkList();
+
     /* ---- META ---- */
     document.title = `${proj.title} — XIAO XING`;
 
@@ -97,14 +142,20 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="gallery-viewer">
                 <div class="gallery-main" id="galleryMain">
                     <img src="${proj.images[0]}" alt="${proj.imageAlts?.[0] || proj.title}" id="mainImage">
-                    <button class="gal-nav gal-prev" id="galPrev">&#8592;</button>
-                    <button class="gal-nav gal-next" id="galNext">&#8594;</button>
-                    <span class="gal-counter" id="galCounter">1 / ${proj.images.length}</span>
+                    </div>
+                <div class="gallery-toolbar">
+                    <span class="gallery-label">Selected views</span>
+                    <div class="gallery-controls">
+                    <button class="gal-nav gal-prev" id="galPrev" aria-label="Previous image">&#8592;</button>
+                    <button class="gal-nav gal-next" id="galNext" aria-label="Next image">&#8594;</button>
+                    <span class="gal-counter" id="galCounter" aria-live="polite">1 / ${proj.images.length}</span>
+                    </div>
                 </div>
                 <div class="gallery-thumbs" id="galleryThumbs">
                     ${proj.images.map((img, i) => `
                         <img src="${img}"
                              alt="${proj.imageAlts?.[i] || `slide ${i + 1}`}"
+                             role="button" tabindex="0" aria-label="View image ${i + 1}" aria-pressed="${i === 0}"
                              class="thumb ${i === 0 ? "active" : ""}"
                              data-index="${i}">
                     `).join("")}
@@ -126,13 +177,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 mainImg.style.opacity = "1";
             }, 220);
             counter.textContent = `${current + 1} / ${proj.images.length}`;
-            thumbs.forEach((t, i) => t.classList.toggle("active", i === current));
+            thumbs.forEach((t, i) => { t.classList.toggle("active", i === current); t.setAttribute("aria-pressed", String(i === current)); });
         }
 
         document.getElementById("galPrev").addEventListener("click", () => goTo(current - 1));
         document.getElementById("galNext").addEventListener("click", () => goTo(current + 1));
         thumbs.forEach(t => t.addEventListener("click", () => goTo(parseInt(t.dataset.index))));
-        document.addEventListener("keydown", e => {
+        thumbs.forEach(t => t.addEventListener("keydown", e => {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goTo(Number(t.dataset.index)); }
+        }));
+        mediaContainer.addEventListener("keydown", e => {
             if (e.key === "ArrowLeft") goTo(current - 1);
             if (e.key === "ArrowRight") goTo(current + 1);
         });

@@ -7,7 +7,7 @@
   <title>Project — XIAO XING</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@300;400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -29,11 +29,28 @@
     </div>
   </nav>
 
+  <div class="project-layout">
   <main class="detail-main">
 
-    <div class="detail-header reveal">
-      <a href="projects.html" class="back-link">Back</a>
+    <div class="detail-header">
+      <a href="projects.html" class="back-link">Project index</a>
       <span class="detail-breadcrumb" id="breadcrumb"></span>
+  <aside class="work-browser" aria-label="Browse other projects">
+    <details id="work-browser-panel">
+      <summary>Browse projects</summary>
+      <div class="work-browser-content">
+        <div class="work-categories" role="group" aria-label="Filter projects by category">
+          <button type="button" data-work-category="all" aria-pressed="false">All work</button>
+          <button type="button" data-work-category="creative-tech" aria-pressed="false">Creative technology</button>
+          <button type="button" data-work-category="visual" aria-pressed="false">Visual art &amp; installations</button>
+          <button type="button" data-work-category="photography,films" aria-pressed="false">Photography &amp; films</button>
+        </div>
+        <p id="work-count" role="status" aria-live="polite"></p>
+        <ul id="work-list"></ul>
+        <a class="work-index-link" href="projects.html">View project index</a>
+      </div>
+    </details>
+  </aside>
     </div>
 
     <div class="detail-title-block reveal">
@@ -46,22 +63,26 @@
 
     <div class="detail-media" id="proj-media"></div>
 
-    <div id="proj-experience-wrap"></div>
-
-    <div class="detail-body reveal">
-      <p class="detail-description" id="proj-description"></p>
-      <p class="detail-medium" id="proj-medium"></p>
-      <div class="detail-link-wrap">
-        <a class="detail-link" id="proj-link" href="#" target="_blank" rel="noopener" style="display:none"></a>
+    <section class="detail-body reveal" aria-labelledby="overview-title">
+      <div class="detail-overview-heading">
+        <span class="section-label">About the work</span>
+        <h2 id="overview-title">Project overview</h2>
+        <div id="proj-experience-wrap"></div>
       </div>
-    </div>
+      <div class="detail-overview-copy">
+        <p class="detail-description" id="proj-description"></p>
+        <p class="detail-medium" id="proj-medium"></p>
+      </div>
+    </section>
 
     <div class="detail-related reveal">
-      <h4 class="related-heading">Related projects</h4>
+      <div class="detail-related-heading"><h2 class="related-heading">Continue exploring</h2><span class="section-label">More in this discipline</span></div>
       <div class="related-grid" id="relatedProjects"></div>
     </div>
 
   </main>
+
+  </div>
 
   <script type="module" src="project.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
