@@ -140,14 +140,15 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (proj.type === "gallery") {
         mediaContainer.innerHTML = `
             <div class="gallery-viewer">
-                <div class="gallery-main" id="galleryMain">
+                <div class="gallery-main" id="galleryMain" tabindex="0" aria-label="Image gallery. Use left and right arrow keys to browse.">
                     <img src="${proj.images[0]}" alt="${proj.imageAlts?.[0] || proj.title}" id="mainImage">
-                    </div>
+                    <button class="gallery-edge gallery-edge-prev" id="galPrev" aria-label="Previous image"><span aria-hidden="true">←</span></button>
+                    <button class="gallery-edge gallery-edge-next" id="galNext" aria-label="Next image"><span aria-hidden="true">→</span></button>
+                </div>
                 <div class="gallery-toolbar">
                     <span class="gallery-label">Selected views</span>
                     <div class="gallery-controls">
-                    <button class="gal-nav gal-prev" id="galPrev" aria-label="Previous image">&#8592;</button>
-                    <button class="gal-nav gal-next" id="galNext" aria-label="Next image">&#8594;</button>
+                    <button class="gallery-expand" type="button">View fullscreen</button>
                     <span class="gal-counter" id="galCounter" aria-live="polite">1 / ${proj.images.length}</span>
                     </div>
                 </div>
@@ -168,14 +169,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const counter = document.getElementById("galCounter");
         const thumbs = document.querySelectorAll(".thumb");
 
+        let imageTimer;
         function goTo(index) {
+            clearTimeout(imageTimer);
             current = (index + proj.images.length) % proj.images.length;
             mainImg.style.opacity = "0";
-            setTimeout(() => {
+            imageTimer = setTimeout(() => {
                 mainImg.src = proj.images[current];
                 mainImg.alt = proj.imageAlts?.[current] || proj.title;
                 mainImg.style.opacity = "1";
-            }, 220);
+            }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 100);
             counter.textContent = `${current + 1} / ${proj.images.length}`;
             thumbs.forEach((t, i) => { t.classList.toggle("active", i === current); t.setAttribute("aria-pressed", String(i === current)); });
         }
@@ -186,10 +189,40 @@ document.addEventListener("DOMContentLoaded", () => {
         thumbs.forEach(t => t.addEventListener("keydown", e => {
             if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goTo(Number(t.dataset.index)); }
         }));
-        mediaContainer.addEventListener("keydown", e => {
-            if (e.key === "ArrowLeft") goTo(current - 1);
-            if (e.key === "ArrowRight") goTo(current + 1);
+        const viewer = mediaContainer.querySelector(".gallery-viewer");
+        viewer.addEventListener("keydown", e => {
+            if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+                e.preventDefault();
+                goTo(current + (e.key === "ArrowRight" ? 1 : -1));
+            }
         });
+        const stage = document.getElementById("galleryMain");
+        let wheelDelta = 0, wheelTimer, wheelLocked = false;
+        stage.addEventListener("wheel", e => {
+            const delta = e.shiftKey && !e.deltaX ? e.deltaY : e.deltaX;
+            if (!delta || (!e.shiftKey && Math.abs(e.deltaY) >= Math.abs(delta))) return;
+            e.preventDefault();
+            clearTimeout(wheelTimer);
+            wheelTimer = setTimeout(() => { wheelLocked = false; wheelDelta = 0; }, 160);
+            if (wheelLocked) return;
+            wheelDelta += delta * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? stage.clientWidth : 1);
+            if (Math.abs(wheelDelta) > 45) {
+                goTo(current + Math.sign(wheelDelta));
+                wheelLocked = true;
+            }
+        }, { passive: false });
+        let touchStart;
+        stage.addEventListener("touchstart", e => {
+            touchStart = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
+        }, { passive: true });
+        stage.addEventListener("touchend", e => {
+            if (!touchStart) return;
+            const dx = e.changedTouches[0].clientX - touchStart.x;
+            const dy = e.changedTouches[0].clientY - touchStart.y;
+            if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) goTo(current + (dx < 0 ? 1 : -1));
+            touchStart = null;
+        });
+        stage.addEventListener("touchcancel", () => { touchStart = null; });
 
         /* mixed media video below gallery */
         if (proj.video) {
@@ -203,6 +236,44 @@ document.addEventListener("DOMContentLoaded", () => {
             vidWrap.appendChild(vid);
             mediaContainer.appendChild(vidWrap);
         }
+    }
+
+    /* A viewport-sized dialog also works where the browser Fullscreen API is unavailable. */
+    const fullscreenContent = mediaContainer.querySelector(".gallery-viewer, .detail-image");
+    if (fullscreenContent) {
+        let expand = mediaContainer.querySelector(".gallery-expand");
+        if (!expand) {
+            expand = document.createElement("button");
+            expand.className = "gallery-expand";
+            expand.textContent = "View fullscreen";
+            mediaContainer.append(expand);
+        }
+        expand.type = "button";
+        expand.setAttribute("aria-haspopup", "dialog");
+        const dialog = document.createElement("dialog");
+        dialog.className = "gallery-fullscreen";
+        dialog.setAttribute("aria-label", `${proj.title} — fullscreen viewer`);
+        const close = document.createElement("button");
+        close.className = "gallery-close";
+        close.textContent = "Close fullscreen ×";
+        dialog.append(close);
+        document.body.append(dialog);
+        const placeholder = document.createComment("gallery position");
+        let previousOverflow;
+        expand.addEventListener("click", () => {
+            fullscreenContent.before(placeholder);
+            dialog.append(fullscreenContent);
+            previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = "hidden";
+            dialog.showModal();
+            close.focus();
+        });
+        close.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("close", () => {
+            placeholder.replaceWith(fullscreenContent);
+            document.body.style.overflow = previousOverflow;
+            expand.focus();
+        });
     }
 
     /* ---- REVEAL ---- */
